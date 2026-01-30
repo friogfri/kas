@@ -39,8 +39,14 @@
             margin-bottom: 30px;
         }
 
+        .search-wrapper {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
         .search-box {
-            width: 100%;
+            flex: 1;
             padding: 15px 20px;
             font-size: 18px;
             border: 2px solid #667eea;
@@ -52,6 +58,28 @@
         .search-box:focus {
             border-color: #764ba2;
             box-shadow: 0 0 10px rgba(118, 75, 162, 0.3);
+        }
+
+        .clear-btn {
+            padding: 15px 25px;
+            font-size: 16px;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .clear-btn:hover {
+            background: #ee5a52;
+            transform: scale(1.05);
+        }
+
+        .clear-btn:active {
+            transform: scale(0.98);
         }
 
         .boxes-grid {
@@ -161,8 +189,17 @@
                 font-size: 1.8em;
             }
 
+            .search-wrapper {
+                flex-direction: column;
+            }
+
             .search-box {
                 font-size: 16px;
+                width: 100%;
+            }
+
+            .clear-btn {
+                width: 100%;
             }
 
             .box-number {
@@ -195,10 +232,13 @@
         <h1>📦 Flyttekasser Oversigt</h1>
         
         <div class="search-container">
-            <input type="text" 
-                   class="search-box" 
-                   id="searchInput" 
-                   placeholder="🔍 Søg efter indhold, kategori eller sticker... (f.eks. 'handsker', 'køkken', 'haj')">
+            <div class="search-wrapper">
+                <input type="text" 
+                       class="search-box" 
+                       id="searchInput" 
+                       placeholder="🔍 Søg efter indhold, kategori eller sticker... (f.eks. 'handsker', 'køkken', 'haj')">
+                <button class="clear-btn" id="clearBtn">🗑️ Slet søgning</button>
+            </div>
         </div>
 
         <div class="boxes-grid" id="boxesGrid"></div>
@@ -511,6 +551,12 @@
         // Event listener for search
         document.getElementById('searchInput').addEventListener('input', (e) => {
             searchBoxes(e.target.value);
+        });
+
+        // Event listener for clear button
+        document.getElementById('clearBtn').addEventListener('click', () => {
+            document.getElementById('searchInput').value = '';
+            renderBoxes(boxes);
         });
 
         // Initial render
