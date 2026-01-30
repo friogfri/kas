@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kasseoversigt - Søgning</title>
+    <title>Flyttekasser Oversigt</title>
     <style>
         * {
             margin: 0;
@@ -11,490 +11,510 @@
             box-sizing: border-box;
         }
 
-```
-    body {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-        background: #f5f5f5;
-        color: #2c3e50;
-        padding: 20px;
-        line-height: 1.6;
-    }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
 
-    .container {
-        max-width: 900px;
-        margin: 0 auto;
-        background: white;
-        padding: 40px;
-        border-radius: 2px;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-    }
-
-    h1 {
-        font-size: 28px;
-        font-weight: 300;
-        margin-bottom: 40px;
-        color: #2c3e50;
-        letter-spacing: 0.5px;
-    }
-
-    .search-box {
-        position: relative;
-        margin-bottom: 30px;
-    }
-
-    #searchInput {
-        width: 100%;
-        padding: 16px 20px;
-        font-size: 16px;
-        border: 1px solid #e0e0e0;
-        border-radius: 2px;
-        outline: none;
-        transition: border-color 0.2s;
-    }
-
-    #searchInput:focus {
-        border-color: #16a085;
-    }
-
-    .btn-blank {
-        margin-top: 12px;
-        padding: 12px 28px;
-        background: white;
-        color: #2c3e50;
-        border: 1px solid #e0e0e0;
-        border-radius: 2px;
-        cursor: pointer;
-        font-size: 14px;
-        font-weight: 400;
-        letter-spacing: 0.3px;
-        transition: all 0.2s;
-    }
-
-    .btn-blank:hover {
-        background: #e74c3c;
-        color: white;
-        border-color: #e74c3c;
-    }
-
-    .suggestions {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: white;
-        border: 1px solid #e0e0e0;
-        border-top: none;
-        max-height: 400px;
-        overflow-y: auto;
-        z-index: 1000;
-        display: none;
-    }
-
-    .suggestions.active {
-        display: block;
-    }
-
-    .suggestion-item {
-        padding: 14px 20px;
-        cursor: pointer;
-        border-bottom: 1px solid #f5f5f5;
-        transition: background 0.15s;
-    }
-
-    .suggestion-item:hover {
-        background: #f9f9f9;
-    }
-
-    .suggestion-item:last-child {
-        border-bottom: none;
-    }
-
-    .suggestion-emoji {
-        font-size: 20px;
-        margin-right: 12px;
-    }
-
-    .suggestion-box {
-        font-weight: 500;
-        color: #16a085;
-        margin-right: 8px;
-    }
-
-    .results {
-        margin-top: 30px;
-    }
-
-    .result-item {
-        padding: 20px;
-        margin-bottom: 12px;
-        background: #fafafa;
-        border-left: 3px solid transparent;
-        border-radius: 2px;
-        transition: all 0.2s;
-    }
-
-    .result-item:nth-child(3n+1) {
-        border-left-color: #e74c3c;
-    }
-
-    .result-item:nth-child(3n+2) {
-        border-left-color: #16a085;
-    }
-
-    .result-item:nth-child(3n+3) {
-        border-left-color: #e67e22;
-    }
-
-    .result-item:hover {
-        background: #f5f5f5;
-        transform: translateX(3px);
-    }
-
-    .result-box {
-        font-size: 18px;
-        font-weight: 500;
-        color: #2c3e50;
-        margin-bottom: 8px;
-    }
-
-    .result-emoji {
-        font-size: 24px;
-        margin-right: 10px;
-    }
-
-    .result-content {
-        color: #5a6c7d;
-        font-size: 15px;
-        line-height: 1.5;
-    }
-
-    .corrected {
-        color: #7f8c8d;
-        font-size: 13px;
-        font-style: italic;
-    }
-
-    .no-results {
-        text-align: center;
-        padding: 40px;
-        color: #95a5a6;
-        font-size: 15px;
-    }
-
-    @media (max-width: 600px) {
         .container {
-            padding: 24px;
+            max-width: 1400px;
+            margin: 0 auto;
         }
-        
-        h1 {
-            font-size: 24px;
-        }
-    }
-</style>
-```
 
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .search-container {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 15px 20px;
+            font-size: 18px;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .search-box:focus {
+            border-color: #764ba2;
+            box-shadow: 0 0 10px rgba(118, 75, 162, 0.3);
+        }
+
+        .boxes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .box-card {
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .box-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .box-card.color-1 {
+            background: #e0e0e0; /* Grå */
+        }
+
+        .box-card.color-2 {
+            background: #d7ccc8; /* Lys brun */
+        }
+
+        .box-card.color-3 {
+            background: #f5f5dc; /* Beige */
+        }
+
+        .box-card.color-4 {
+            background: #fff9c4; /* Lys gul */
+        }
+
+        .box-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(0,0,0,0.1);
+        }
+
+        .box-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .box-sticker {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .sticker-emoji {
+            font-size: 32px;
+        }
+
+        .sticker-desc {
+            font-size: 12px;
+            color: #666;
+            font-style: italic;
+        }
+
+        .box-category {
+            display: inline-block;
+            background: rgba(102, 126, 234, 0.2);
+            color: #667eea;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .box-content {
+            color: #333;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        .box-content strong {
+            color: #764ba2;
+        }
+
+        .no-results {
+            text-align: center;
+            color: white;
+            font-size: 24px;
+            padding: 50px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .boxes-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .search-box {
+                font-size: 16px;
+            }
+
+            .box-number {
+                font-size: 20px;
+            }
+
+            .sticker-emoji {
+                font-size: 28px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .search-container {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1>Kasseoversigt</h1>
-
-```
-    <div class="search-box">
-        <input 
-            type="text" 
-            id="searchInput" 
-            placeholder="Søg efter emner, kategorier eller ikoner..."
-            autocomplete="off"
-        >
-        <div class="suggestions" id="suggestions"></div>
-    </div>
-    
-    <button class="btn-blank" onclick="clearSearch()">Blank søgefelt</button>
-    
-    <div class="results" id="results"></div>
-</div>
-
-<script>
-    // Database med alle kasser (med rettede stavefejl)
-    const boxes = [
-        {
-            number: 1,
-            emoji: '🏠',
-            content: 'Håndklæder, lagner, el-tæppe, hængekøje (rød), Royal stof',
-            category: 'Soveværelse & Tekstiler'
-        },
-        {
-            number: 2,
-            emoji: '🍳',
-            content: 'Potteskjulere, madspil design, Malegrej, spændebøjler (bøjler)',
-            category: 'Køkken & Mad / Hobby & Kunst',
-            corrections: 'bøgler → bøjler'
-        },
-        {
-            number: 3,
-            emoji: '🏄',
-            content: 'Jakker, handsker, læderkit (lederkilt), fjer',
-            category: 'Tøj & Tilbehør / Sport',
-            corrections: 'jokreb → læderkit, lederkilt → læderkit'
-        },
-        {
-            number: 4,
-            emoji: '🚗',
-            content: 'Regntøj x2, handsker x10, sutsko, padel bolde, trøjer x2',
-            category: 'Tøj & Tilbehør / Sport'
-        },
-        {
-            number: 5,
-            emoji: '🍳',
-            content: 'Kander (kandser), bøgeform, sil, ske, saks, kniv, Halskæder x2, nips fra vinduer',
-            category: 'Køkken & Mad / Smykker',
-            corrections: 'kandser → kander'
-        },
-        {
-            number: 6,
-            emoji: '🚚',
-            content: 'Hobby materialer, tæpper',
-            category: 'Hobby & Kunst'
-        },
-        {
-            number: 7,
-            emoji: '🧩',
-            content: 'Soveværelse tøj, værktøj, maskine, håndklæder',
-            category: 'Tøj & Tilbehør / Soveværelse'
-        },
-        {
-            number: 8,
-            emoji: '🥫',
-            content: 'CD\'er, bøjler (bøgler), nipsting, stjerner, fotos',
-            category: 'Fotos & Medier',
-            corrections: 'bøgler → bøjler'
-        },
-        {
-            number: 9,
-            emoji: '💄',
-            content: 'Lamper, maling, ramme, silkebånd',
-            category: 'Fotos & Medier'
-        },
-        {
-            number: 10,
-            emoji: '☮️',
-            content: 'Soveværelse ting, fotos, iPod, kaffeting, lys, kaffefiltre',
-            category: 'Soveværelse & Tekstiler / Fotos'
-        },
-        {
-            number: 11,
-            emoji: '🎨',
-            content: 'Frisbee (freeshee), metal kugler, overvågningskamera, LED bånd 8m, vandpistoler',
-            category: 'Hobby & Kunst / Elektronik',
-            corrections: 'freeshee → frisbee'
-        },
-        {
-            number: 12,
-            emoji: '🎮',
-            content: 'Bestik, køkkenredskaber, Snorkel, dykkerudstyr, svømmefødder',
-            category: 'Køkken & Mad / Sport'
-        },
-        {
-            number: 13,
-            emoji: '🗽',
-            content: 'Jakker (russisk + burner), spejle x4, fimo ler',
-            category: 'Tøj & Tilbehør'
-        },
-        {
-            number: 14,
-            emoji: '🩹',
-            content: 'Sko, støvler, tæppeunderlag',
-            category: 'Tøj & Tilbehør'
-        },
-        {
-            number: 15,
-            emoji: '🦈',
-            content: 'Gryder, pander, bordskånere, ildfaste fade',
-            category: 'Køkken & Mad'
-        },
-        {
-            number: 16,
-            emoji: '🍳',
-            content: 'Glas, maling',
-            category: 'Køkken & Mad'
-        },
-        {
-            number: 17,
-            emoji: '🗽',
-            content: 'Jakker (russisk + burner), spejle x4, fimo ler',
-            category: 'Tøj & Tilbehør'
-        },
-        {
-            number: 18,
-            emoji: '🍳',
-            content: 'Ris, kakao, syltetøj, kager, nødder',
-            category: 'Køkken & Mad'
-        },
-        {
-            number: 19,
-            emoji: '🍳',
-            content: 'Krydderier x100, blender, ispinde (ispager), træhylde, skærebræt',
-            category: 'Køkken & Mad',
-            corrections: 'ispager → ispinde'
-        },
-        {
-            number: 20,
-            emoji: '🐰',
-            content: 'Fjer (hvide), maling, varmepistol, plakater, tennisbolde (fernisbolde)',
-            category: 'Hobby & Kunst',
-            corrections: 'fernisbolde → tennisbolde'
-        },
-        {
-            number: 21,
-            emoji: '🏕️',
-            content: 'Lamper, myggenet, tekander x2, Vigtige papirer',
-            category: 'Camping & Outdoor / Papirer'
-        },
-        {
-            number: 22,
-            emoji: '📄',
-            content: 'Vigtige papirer, CD\'er med billeder, krigsfotos, hæfter',
-            category: 'Papirer & Dokumenter'
-        },
-        {
-            number: 23,
-            emoji: '🏄',
-            content: 'Spil, pipetter',
-            category: 'Spil & Legetøj'
-        },
-        {
-            number: 24,
-            emoji: '🐟',
-            content: 'Skuffer x2, papirslejsner, gavepapir, limpistol, ledninger, MAC',
-            category: 'Elektronik & Værktøj'
-        },
-        {
-            number: 25,
-            emoji: '📷',
-            content: 'Diskgolf, atlas, Bibel, voksdug, spejle, diverse',
-            category: 'Sport & Udendørs / Diverse'
-        },
-        {
-            number: 26,
-            emoji: '🐋',
-            content: 'Materialer, VIF-papirer, limpistol, fiskesnor, musefælder',
-            category: 'Hobby & Kunst'
-        },
-        {
-            number: 27,
-            emoji: '🐢',
-            content: 'Trøjer, læder, bukser',
-            category: 'Tøj & Tilbehør'
-        },
-        {
-            number: 28,
-            emoji: '🏝️',
-            content: 'Camping jakke, inline skøjter, champagneglas, burner',
-            category: 'Camping & Outdoor'
-        },
-        {
-            number: 29,
-            emoji: '⛷️',
-            content: 'Hjelme (Noland og ca. 11 år)',
-            category: 'Børneting'
-        },
-        {
-            number: 30,
-            emoji: '🏄',
-            content: 'Spil, UV tæppe, pipetter',
-            category: 'Spil & Legetøj'
-        }
-    ];
-
-    const searchInput = document.getElementById('searchInput');
-    const suggestionsDiv = document.getElementById('suggestions');
-    const resultsDiv = document.getElementById('results');
-
-    // Søgefunktion
-    searchInput.addEventListener('input', function() {
-        const query = this.value.toLowerCase().trim();
+        <h1>📦 Flyttekasser Oversigt</h1>
         
-        if (query.length === 0) {
-            suggestionsDiv.classList.remove('active');
-            return;
+        <div class="search-container">
+            <input type="text" 
+                   class="search-box" 
+                   id="searchInput" 
+                   placeholder="🔍 Søg efter indhold, kategori eller sticker... (f.eks. 'handsker', 'køkken', 'haj')">
+        </div>
+
+        <div class="boxes-grid" id="boxesGrid"></div>
+        <div class="no-results" id="noResults" style="display: none;">
+            Ingen kasser fundet 😔
+        </div>
+    </div>
+
+    <script>
+        const boxes = [
+            {
+                number: 1,
+                category: "TEKSTILER",
+                content: "Håndklæder, Lagen, El-tæppe, Stort Mønstre, Sommer'tap' til bil, Hængekøje: Rød, 'Royal' stof",
+                sticker: "",
+                stickerDesc: "Mønstre tegnet"
+            },
+            {
+                number: 2,
+                category: "MALING & VÆRKTØJ",
+                content: "Malings grej, Tyndt pøler, Spændebøjler, LOS, Potteskjuler:U, 'MAD·SPIL' indesign",
+                sticker: "🔧",
+                stickerDesc: "Rødt stempel"
+            },
+            {
+                number: 3,
+                category: "TØJ & TILBEHØR",
+                content: "Skyklær, Briller Burner, Flot Jakke, Læderkilt Sjov, Turkis, stof, Fjer til Skulder glam, Handsker, Jokreb, Risk varmetop",
+                sticker: "🏄",
+                stickerDesc: "Surfbrætter"
+            },
+            {
+                number: 4,
+                category: "SPORTSTØJ",
+                content: "Regn Jakker x 2 + Bukser, Handsker x 10, Sutsko, Padel! + Bolde, Trøjer x 2",
+                sticker: "🚗",
+                stickerDesc: "VW boble-bil"
+            },
+            {
+                number: 5,
+                category: "KØKKEN & SMYKKER",
+                content: "Kander, Bøgeform, Sil, Ske, Saks, Kniv, Nips Fra vindue, Halskæder x 2",
+                sticker: "🎈",
+                stickerDesc: "Ballon hund"
+            },
+            {
+                number: 6,
+                category: "HOBBY & TÆPPER",
+                content: "Figurer + Hobby, Tæpper, Småting, Bag lysestager, dsy, Øre B Frop",
+                sticker: "🚚",
+                stickerDesc: "Keep it going"
+            },
+            {
+                number: 7,
+                category: "SOVEVÆRELSE",
+                content: "Soveværelse, -sjov, Værktøj-skrues, Maskine, Håndklæder",
+                sticker: "🧩",
+                stickerDesc: "Rubiks terning"
+            },
+            {
+                number: 8,
+                category: "FOTOS & CD'ER",
+                content: "CD'er, Bøjler, Sifstar, Hoppy, 'sylt', Nips, Stjerner, 'Hub', Foto's VIF",
+                sticker: "🥫",
+                stickerDesc: "VIBES krukke"
+            },
+            {
+                number: 9,
+                category: "LAMPER & DEKOR",
+                content: "'Blod lampe', Maling, Ramme Lattergas, Silkebånd, Tæpper",
+                sticker: "💄",
+                stickerDesc: "Lipstick taske"
+            },
+            {
+                number: 10,
+                category: "SOVEVÆRELSE & KAFFE",
+                content: "Soveværelse, Fotos, Kløpind, Kaffefiltre, Dagbogshæfte, Gild, IPod, Ur, N-Bøger, Stearinlys x7, Fyrfadslys, Hare-JBL, Kaffemølle, Tranebær, Gode olier",
+                sticker: "☮️",
+                stickerDesc: "Hippie pige"
+            },
+            {
+                number: 11,
+                category: "HOBBY & ELEKTRONIK",
+                content: "Freeshee, Hobby: Macramé, Burner hat x 2, Frakke rejseserve, Metal Kugler, Flat Taske M. CD'er, Overvågnings Kamera: PARE, 2 x Vandpistoler, 8 m Led Bånd, El-smating vyttg, Burner-flapcider, Klistermærker, Nøkker 50+L",
+                sticker: "🔵",
+                stickerDesc: "Blå sticker"
+            },
+            {
+                number: 12,
+                category: "KØKKEN & SPORT",
+                content: "Bestik, Praktisk: Køkken, Skøjter: Hjelm, Ting, Bestik, Snorkel, Dykker, Svømmefødder, Perler",
+                sticker: "🎮",
+                stickerDesc: "Angry Birds"
+            },
+            {
+                number: 13,
+                category: "JAKKER & SPEJLE",
+                content: "Jakker, Russisk + Burner jakke, spejle x 4, Fimo ler",
+                sticker: "🗽",
+                stickerDesc: "Frihedsgudinde"
+            },
+            {
+                number: 14,
+                category: "SKO & STØVLER",
+                content: "Gode sko tørt, Støvler, Tæppe underlag",
+                sticker: "🩹",
+                stickerDesc: "Plaster"
+            },
+            {
+                number: 15,
+                category: "KØKKEN",
+                content: "Gryder, Skal, plast, Pande, Bordskånere, Fad: ildfast",
+                sticker: "🦈",
+                stickerDesc: "Haj"
+            },
+            {
+                number: 16,
+                category: "LYSESTAGER & GLAS",
+                content: "Lyserød Synest, Glas, Maling, oske",
+                sticker: "🐭",
+                stickerDesc: "Mus med hammer"
+            },
+            {
+                number: 17,
+                category: "JAKKER & SPEJLE",
+                content: "Jakker, Russisk + Burner jak., spejle x 4, Fimo ler (DUPLIKAT)",
+                sticker: "🗽",
+                stickerDesc: "Frihedsgudinde"
+            },
+            {
+                number: 18,
+                category: "MAD",
+                content: "Køl/kælder, Mad, Ris Kakao, Sukker, Kager, Nødder",
+                sticker: "",
+                stickerDesc: "Ingen sticker"
+            },
+            {
+                number: 19,
+                category: "KØKKEN",
+                content: "Køkken, Prep, Grill, Kakao ops, kakao, Krydderier x 100, Blender, Isposer OSV, 'Træhylde', Skærebræt",
+                sticker: "🔤",
+                stickerDesc: "K tape"
+            },
+            {
+                number: 20,
+                category: "KUNST & HOBBY",
+                content: "Fjer: Hvide, Maling + plus varmepistol, Plakater, Fernis bolde, 6 år",
+                sticker: "🐰",
+                stickerDesc: "Kanin med briller"
+            },
+            {
+                number: 21,
+                category: "PAPIRER & LAMPER",
+                content: "Vigtige papir, Lamper, Myggenet, Lise/MC, stof, Te kande: 2x Stetson",
+                sticker: "🏕️",
+                stickerDesc: "Campingvogn"
+            },
+            {
+                number: 22,
+                category: "PAPIRER & FOTOS",
+                content: "Glas-Magisk Lappegrej, Ur-kasser, stop servare, godt Papir, CD'er med billeder, 5 stavler, Vigtige Papire, Krigsfotos #vv, Hæfter Noter TPP",
+                sticker: "",
+                stickerDesc: "Ingen sticker"
+            },
+            {
+                number: 23,
+                category: "SPIL & RØGELSE",
+                content: "Spil. Tørt. Lyst Varmt. Røgelse, Pipetter",
+                sticker: "🏄",
+                stickerDesc: "Surfende dyr"
+            },
+            {
+                number: 24,
+                category: "SKUFFER & ELEKTRONIK",
+                content: "Hvide skuffer x 2, Varm Tøl, Papirslejsner, Gavepapir, Limpistol-lille, Lys, EMB Krimeton, Lygte, Røgalarm, Ledninger til udstyr, Pr. Hordd Briller, MAC",
+                sticker: "🐟",
+                stickerDesc: "Fisk med snorkel"
+            },
+            {
+                number: 25,
+                category: "DIVERSE",
+                content: "Rødt, små billeder, Bibel, Atlas, Runde spejle, Diskgolf, Kande, Klogtkeding, Lagner i grøt, til Projekt, Voksdug + olie sex",
+                sticker: "📷",
+                stickerDesc: "Blåt kamera"
+            },
+            {
+                number: 26,
+                category: "MATERIALER",
+                content: "Fra 'rum', Materialer, VIF-Papire, Lim Pistol, Fiskesnor, Musefælder",
+                sticker: "🐋",
+                stickerDesc: "Hval"
+            },
+            {
+                number: 27,
+                category: "TØJ",
+                content: "Trøjer, Læder, Bukser, split",
+                sticker: "🐢",
+                stickerDesc: "Skildpadde"
+            },
+            {
+                number: 28,
+                category: "CAMPING",
+                content: "Flot kop guld, Jakke GOD, Hjul-inline, Vase, 3 x Champagne glas Burner, Burner mindre+te kande",
+                sticker: "🏝️",
+                stickerDesc: "Tropisk ø"
+            },
+            {
+                number: 29,
+                category: "HJELME",
+                content: "Hjelme, Noland og ca 11 år",
+                sticker: "⛷️",
+                stickerDesc: "Ski/Bjerg"
+            },
+            {
+                number: 30,
+                category: "SPIL & UV TÆPPE",
+                content: "UV Tæppe OSV, spil. Tørt. Lyst Varmt. Røgelse, Pipetter",
+                sticker: "🏄",
+                stickerDesc: "Surfende dyr"
+            },
+            {
+                number: 31,
+                category: "BADEVÆRELSE",
+                content: "Tørt & varmt, Badeværelse, Syting, Trimmes, Piller & creme, 56 x Kugler",
+                sticker: "🥫",
+                stickerDesc: "Campbell's Soup"
+            },
+            {
+                number: 32,
+                category: "TØJ",
+                content: "Jakko, Selskab 'Taxi' Jakke, Trøje, Sommer sokker, Fnugruller, Seler",
+                sticker: "🏕️",
+                stickerDesc: "Campingvogn ved søen"
+            },
+            {
+                number: 33,
+                category: "TØJ",
+                content: "Tøj jeg ikke bruger pt. (se foto)",
+                sticker: "👼",
+                stickerDesc: "Engel/mand"
+            },
+            {
+                number: 34,
+                category: "SMYKKER & RENGØRING",
+                content: "SMYKKER, El Kedel, Ledning, Rengørings grej, Klud, Støvler, 5 ko",
+                sticker: "🍁",
+                stickerDesc: "Ahornblad"
+            },
+            {
+                number: 35,
+                category: "DIVERSE",
+                content: "Poser- små +store, Maling, lys, Gin x 5, HAT, Creaer, Tæpper",
+                sticker: "⚓",
+                stickerDesc: "Anker"
+            }
+        ];
+
+        function getColorClass(index) {
+            const colors = ['color-1', 'color-2', 'color-3', 'color-4'];
+            return colors[index % 4];
         }
 
-        const matches = boxes.filter(box => {
-            const searchText = `${box.content} ${box.category} ${box.emoji}`.toLowerCase();
-            return searchText.includes(query);
+        function renderBoxes(filteredBoxes) {
+            const grid = document.getElementById('boxesGrid');
+            const noResults = document.getElementById('noResults');
+            
+            if (filteredBoxes.length === 0) {
+                grid.innerHTML = '';
+                noResults.style.display = 'block';
+                return;
+            }
+            
+            noResults.style.display = 'none';
+            
+            grid.innerHTML = filteredBoxes.map((box, index) => `
+                <div class="box-card ${getColorClass(index)}">
+                    <div class="box-header">
+                        <div class="box-number">Kasse ${box.number}</div>
+                        <div class="box-sticker">
+                            <span class="sticker-emoji">${box.sticker}</span>
+                        </div>
+                    </div>
+                    ${box.stickerDesc ? `<div class="sticker-desc">${box.stickerDesc}</div>` : ''}
+                    <div class="box-category">${box.category}</div>
+                    <div class="box-content">
+                        <strong>Indhold:</strong> ${box.content}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function searchBoxes(query) {
+            const searchTerm = query.toLowerCase().trim();
+            
+            if (!searchTerm) {
+                renderBoxes(boxes);
+                return;
+            }
+            
+            const filtered = boxes.filter(box => {
+                return box.content.toLowerCase().includes(searchTerm) ||
+                       box.category.toLowerCase().includes(searchTerm) ||
+                       box.stickerDesc.toLowerCase().includes(searchTerm) ||
+                       `kasse ${box.number}`.includes(searchTerm);
+            });
+            
+            renderBoxes(filtered);
+        }
+
+        // Event listener for search
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            searchBoxes(e.target.value);
         });
 
-        displaySuggestions(matches);
-        displayResults(matches, query);
-    });
-
-    // Vis forslag
-    function displaySuggestions(matches) {
-        if (matches.length === 0) {
-            suggestionsDiv.classList.remove('active');
-            return;
-        }
-
-        suggestionsDiv.innerHTML = matches.map(box => `
-            <div class="suggestion-item" onclick="selectBox(${box.number})">
-                <span class="suggestion-emoji">${box.emoji}</span>
-                <span class="suggestion-box">Kasse ${box.number}:</span>
-                <span>${box.content.substring(0, 60)}${box.content.length > 60 ? '...' : ''}</span>
-            </div>
-        `).join('');
-
-        suggestionsDiv.classList.add('active');
-    }
-
-    // Vis resultater
-    function displayResults(matches, query) {
-        if (query.length === 0) {
-            resultsDiv.innerHTML = '';
-            return;
-        }
-
-        if (matches.length === 0) {
-            resultsDiv.innerHTML = '<div class="no-results">Ingen resultater fundet</div>';
-            return;
-        }
-
-        resultsDiv.innerHTML = matches.map(box => `
-            <div class="result-item">
-                <div class="result-box">
-                    <span class="result-emoji">${box.emoji}</span>
-                    Kasse ${box.number}
-                </div>
-                <div class="result-content">
-                    ${box.content}
-                </div>
-                ${box.corrections ? `<div class="corrected">Rettet: ${box.corrections}</div>` : ''}
-            </div>
-        `).join('');
-    }
-
-    // Vælg kasse fra forslag
-    function selectBox(boxNumber) {
-        const box = boxes.find(b => b.number === boxNumber);
-        searchInput.value = box.content.split(',')[0];
-        suggestionsDiv.classList.remove('active');
-        displayResults([box], searchInput.value);
-    }
-
-    // Blank søgefelt
-    function clearSearch() {
-        searchInput.value = '';
-        searchInput.focus();
-        suggestionsDiv.classList.remove('active');
-    }
-
-    // Luk forslag ved klik udenfor
-    document.addEventListener('click', function(e) {
-        if (!searchInput.contains(e.target) && !suggestionsDiv.contains(e.target)) {
-            suggestionsDiv.classList.remove('active');
-        }
-    });
-</script>
-```
-
+        // Initial render
+        renderBoxes(boxes);
+    </script>
 </body>
-</html>test
+</html>
