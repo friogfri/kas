@@ -1,1 +1,500 @@
-test
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kasseoversigt - Søgning</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+```
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+        background: #f5f5f5;
+        color: #2c3e50;
+        padding: 20px;
+        line-height: 1.6;
+    }
+
+    .container {
+        max-width: 900px;
+        margin: 0 auto;
+        background: white;
+        padding: 40px;
+        border-radius: 2px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+        font-size: 28px;
+        font-weight: 300;
+        margin-bottom: 40px;
+        color: #2c3e50;
+        letter-spacing: 0.5px;
+    }
+
+    .search-box {
+        position: relative;
+        margin-bottom: 30px;
+    }
+
+    #searchInput {
+        width: 100%;
+        padding: 16px 20px;
+        font-size: 16px;
+        border: 1px solid #e0e0e0;
+        border-radius: 2px;
+        outline: none;
+        transition: border-color 0.2s;
+    }
+
+    #searchInput:focus {
+        border-color: #16a085;
+    }
+
+    .btn-blank {
+        margin-top: 12px;
+        padding: 12px 28px;
+        background: white;
+        color: #2c3e50;
+        border: 1px solid #e0e0e0;
+        border-radius: 2px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 400;
+        letter-spacing: 0.3px;
+        transition: all 0.2s;
+    }
+
+    .btn-blank:hover {
+        background: #e74c3c;
+        color: white;
+        border-color: #e74c3c;
+    }
+
+    .suggestions {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        border: 1px solid #e0e0e0;
+        border-top: none;
+        max-height: 400px;
+        overflow-y: auto;
+        z-index: 1000;
+        display: none;
+    }
+
+    .suggestions.active {
+        display: block;
+    }
+
+    .suggestion-item {
+        padding: 14px 20px;
+        cursor: pointer;
+        border-bottom: 1px solid #f5f5f5;
+        transition: background 0.15s;
+    }
+
+    .suggestion-item:hover {
+        background: #f9f9f9;
+    }
+
+    .suggestion-item:last-child {
+        border-bottom: none;
+    }
+
+    .suggestion-emoji {
+        font-size: 20px;
+        margin-right: 12px;
+    }
+
+    .suggestion-box {
+        font-weight: 500;
+        color: #16a085;
+        margin-right: 8px;
+    }
+
+    .results {
+        margin-top: 30px;
+    }
+
+    .result-item {
+        padding: 20px;
+        margin-bottom: 12px;
+        background: #fafafa;
+        border-left: 3px solid transparent;
+        border-radius: 2px;
+        transition: all 0.2s;
+    }
+
+    .result-item:nth-child(3n+1) {
+        border-left-color: #e74c3c;
+    }
+
+    .result-item:nth-child(3n+2) {
+        border-left-color: #16a085;
+    }
+
+    .result-item:nth-child(3n+3) {
+        border-left-color: #e67e22;
+    }
+
+    .result-item:hover {
+        background: #f5f5f5;
+        transform: translateX(3px);
+    }
+
+    .result-box {
+        font-size: 18px;
+        font-weight: 500;
+        color: #2c3e50;
+        margin-bottom: 8px;
+    }
+
+    .result-emoji {
+        font-size: 24px;
+        margin-right: 10px;
+    }
+
+    .result-content {
+        color: #5a6c7d;
+        font-size: 15px;
+        line-height: 1.5;
+    }
+
+    .corrected {
+        color: #7f8c8d;
+        font-size: 13px;
+        font-style: italic;
+    }
+
+    .no-results {
+        text-align: center;
+        padding: 40px;
+        color: #95a5a6;
+        font-size: 15px;
+    }
+
+    @media (max-width: 600px) {
+        .container {
+            padding: 24px;
+        }
+        
+        h1 {
+            font-size: 24px;
+        }
+    }
+</style>
+```
+
+</head>
+<body>
+    <div class="container">
+        <h1>Kasseoversigt</h1>
+
+```
+    <div class="search-box">
+        <input 
+            type="text" 
+            id="searchInput" 
+            placeholder="Søg efter emner, kategorier eller ikoner..."
+            autocomplete="off"
+        >
+        <div class="suggestions" id="suggestions"></div>
+    </div>
+    
+    <button class="btn-blank" onclick="clearSearch()">Blank søgefelt</button>
+    
+    <div class="results" id="results"></div>
+</div>
+
+<script>
+    // Database med alle kasser (med rettede stavefejl)
+    const boxes = [
+        {
+            number: 1,
+            emoji: '🏠',
+            content: 'Håndklæder, lagner, el-tæppe, hængekøje (rød), Royal stof',
+            category: 'Soveværelse & Tekstiler'
+        },
+        {
+            number: 2,
+            emoji: '🍳',
+            content: 'Potteskjulere, madspil design, Malegrej, spændebøjler (bøjler)',
+            category: 'Køkken & Mad / Hobby & Kunst',
+            corrections: 'bøgler → bøjler'
+        },
+        {
+            number: 3,
+            emoji: '🏄',
+            content: 'Jakker, handsker, læderkit (lederkilt), fjer',
+            category: 'Tøj & Tilbehør / Sport',
+            corrections: 'jokreb → læderkit, lederkilt → læderkit'
+        },
+        {
+            number: 4,
+            emoji: '🚗',
+            content: 'Regntøj x2, handsker x10, sutsko, padel bolde, trøjer x2',
+            category: 'Tøj & Tilbehør / Sport'
+        },
+        {
+            number: 5,
+            emoji: '🍳',
+            content: 'Kander (kandser), bøgeform, sil, ske, saks, kniv, Halskæder x2, nips fra vinduer',
+            category: 'Køkken & Mad / Smykker',
+            corrections: 'kandser → kander'
+        },
+        {
+            number: 6,
+            emoji: '🚚',
+            content: 'Hobby materialer, tæpper',
+            category: 'Hobby & Kunst'
+        },
+        {
+            number: 7,
+            emoji: '🧩',
+            content: 'Soveværelse tøj, værktøj, maskine, håndklæder',
+            category: 'Tøj & Tilbehør / Soveværelse'
+        },
+        {
+            number: 8,
+            emoji: '🥫',
+            content: 'CD\'er, bøjler (bøgler), nipsting, stjerner, fotos',
+            category: 'Fotos & Medier',
+            corrections: 'bøgler → bøjler'
+        },
+        {
+            number: 9,
+            emoji: '💄',
+            content: 'Lamper, maling, ramme, silkebånd',
+            category: 'Fotos & Medier'
+        },
+        {
+            number: 10,
+            emoji: '☮️',
+            content: 'Soveværelse ting, fotos, iPod, kaffeting, lys, kaffefiltre',
+            category: 'Soveværelse & Tekstiler / Fotos'
+        },
+        {
+            number: 11,
+            emoji: '🎨',
+            content: 'Frisbee (freeshee), metal kugler, overvågningskamera, LED bånd 8m, vandpistoler',
+            category: 'Hobby & Kunst / Elektronik',
+            corrections: 'freeshee → frisbee'
+        },
+        {
+            number: 12,
+            emoji: '🎮',
+            content: 'Bestik, køkkenredskaber, Snorkel, dykkerudstyr, svømmefødder',
+            category: 'Køkken & Mad / Sport'
+        },
+        {
+            number: 13,
+            emoji: '🗽',
+            content: 'Jakker (russisk + burner), spejle x4, fimo ler',
+            category: 'Tøj & Tilbehør'
+        },
+        {
+            number: 14,
+            emoji: '🩹',
+            content: 'Sko, støvler, tæppeunderlag',
+            category: 'Tøj & Tilbehør'
+        },
+        {
+            number: 15,
+            emoji: '🦈',
+            content: 'Gryder, pander, bordskånere, ildfaste fade',
+            category: 'Køkken & Mad'
+        },
+        {
+            number: 16,
+            emoji: '🍳',
+            content: 'Glas, maling',
+            category: 'Køkken & Mad'
+        },
+        {
+            number: 17,
+            emoji: '🗽',
+            content: 'Jakker (russisk + burner), spejle x4, fimo ler',
+            category: 'Tøj & Tilbehør'
+        },
+        {
+            number: 18,
+            emoji: '🍳',
+            content: 'Ris, kakao, syltetøj, kager, nødder',
+            category: 'Køkken & Mad'
+        },
+        {
+            number: 19,
+            emoji: '🍳',
+            content: 'Krydderier x100, blender, ispinde (ispager), træhylde, skærebræt',
+            category: 'Køkken & Mad',
+            corrections: 'ispager → ispinde'
+        },
+        {
+            number: 20,
+            emoji: '🐰',
+            content: 'Fjer (hvide), maling, varmepistol, plakater, tennisbolde (fernisbolde)',
+            category: 'Hobby & Kunst',
+            corrections: 'fernisbolde → tennisbolde'
+        },
+        {
+            number: 21,
+            emoji: '🏕️',
+            content: 'Lamper, myggenet, tekander x2, Vigtige papirer',
+            category: 'Camping & Outdoor / Papirer'
+        },
+        {
+            number: 22,
+            emoji: '📄',
+            content: 'Vigtige papirer, CD\'er med billeder, krigsfotos, hæfter',
+            category: 'Papirer & Dokumenter'
+        },
+        {
+            number: 23,
+            emoji: '🏄',
+            content: 'Spil, pipetter',
+            category: 'Spil & Legetøj'
+        },
+        {
+            number: 24,
+            emoji: '🐟',
+            content: 'Skuffer x2, papirslejsner, gavepapir, limpistol, ledninger, MAC',
+            category: 'Elektronik & Værktøj'
+        },
+        {
+            number: 25,
+            emoji: '📷',
+            content: 'Diskgolf, atlas, Bibel, voksdug, spejle, diverse',
+            category: 'Sport & Udendørs / Diverse'
+        },
+        {
+            number: 26,
+            emoji: '🐋',
+            content: 'Materialer, VIF-papirer, limpistol, fiskesnor, musefælder',
+            category: 'Hobby & Kunst'
+        },
+        {
+            number: 27,
+            emoji: '🐢',
+            content: 'Trøjer, læder, bukser',
+            category: 'Tøj & Tilbehør'
+        },
+        {
+            number: 28,
+            emoji: '🏝️',
+            content: 'Camping jakke, inline skøjter, champagneglas, burner',
+            category: 'Camping & Outdoor'
+        },
+        {
+            number: 29,
+            emoji: '⛷️',
+            content: 'Hjelme (Noland og ca. 11 år)',
+            category: 'Børneting'
+        },
+        {
+            number: 30,
+            emoji: '🏄',
+            content: 'Spil, UV tæppe, pipetter',
+            category: 'Spil & Legetøj'
+        }
+    ];
+
+    const searchInput = document.getElementById('searchInput');
+    const suggestionsDiv = document.getElementById('suggestions');
+    const resultsDiv = document.getElementById('results');
+
+    // Søgefunktion
+    searchInput.addEventListener('input', function() {
+        const query = this.value.toLowerCase().trim();
+        
+        if (query.length === 0) {
+            suggestionsDiv.classList.remove('active');
+            return;
+        }
+
+        const matches = boxes.filter(box => {
+            const searchText = `${box.content} ${box.category} ${box.emoji}`.toLowerCase();
+            return searchText.includes(query);
+        });
+
+        displaySuggestions(matches);
+        displayResults(matches, query);
+    });
+
+    // Vis forslag
+    function displaySuggestions(matches) {
+        if (matches.length === 0) {
+            suggestionsDiv.classList.remove('active');
+            return;
+        }
+
+        suggestionsDiv.innerHTML = matches.map(box => `
+            <div class="suggestion-item" onclick="selectBox(${box.number})">
+                <span class="suggestion-emoji">${box.emoji}</span>
+                <span class="suggestion-box">Kasse ${box.number}:</span>
+                <span>${box.content.substring(0, 60)}${box.content.length > 60 ? '...' : ''}</span>
+            </div>
+        `).join('');
+
+        suggestionsDiv.classList.add('active');
+    }
+
+    // Vis resultater
+    function displayResults(matches, query) {
+        if (query.length === 0) {
+            resultsDiv.innerHTML = '';
+            return;
+        }
+
+        if (matches.length === 0) {
+            resultsDiv.innerHTML = '<div class="no-results">Ingen resultater fundet</div>';
+            return;
+        }
+
+        resultsDiv.innerHTML = matches.map(box => `
+            <div class="result-item">
+                <div class="result-box">
+                    <span class="result-emoji">${box.emoji}</span>
+                    Kasse ${box.number}
+                </div>
+                <div class="result-content">
+                    ${box.content}
+                </div>
+                ${box.corrections ? `<div class="corrected">Rettet: ${box.corrections}</div>` : ''}
+            </div>
+        `).join('');
+    }
+
+    // Vælg kasse fra forslag
+    function selectBox(boxNumber) {
+        const box = boxes.find(b => b.number === boxNumber);
+        searchInput.value = box.content.split(',')[0];
+        suggestionsDiv.classList.remove('active');
+        displayResults([box], searchInput.value);
+    }
+
+    // Blank søgefelt
+    function clearSearch() {
+        searchInput.value = '';
+        searchInput.focus();
+        suggestionsDiv.classList.remove('active');
+    }
+
+    // Luk forslag ved klik udenfor
+    document.addEventListener('click', function(e) {
+        if (!searchInput.contains(e.target) && !suggestionsDiv.contains(e.target)) {
+            suggestionsDiv.classList.remove('active');
+        }
+    });
+</script>
+```
+
+</body>
+</html>test
