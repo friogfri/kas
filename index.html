@@ -251,52 +251,52 @@
         const boxes = [
             {
                 number: 1,
-                category: "TEKSTILER",
-                content: "Håndklæder, Lagen, El-tæppe, Stort Mønstre, Sommer'tap' til bil, Hængekøje: Rød, 'Royal' stof",
-                sticker: "",
-                stickerDesc: "Mønstre tegnet"
-            },
-            {
-                number: 2,
-                category: "MALING & VÆRKTØJ",
-                content: "Malings grej, Tyndt pøler, Spændebøjler, LOS, Potteskjuler:U, 'MAD·SPIL' indesign",
-                sticker: "🔧",
-                stickerDesc: "Rødt stempel"
-            },
-            {
-                number: 3,
-                category: "TØJ & TILBEHØR",
-                content: "Skyklær, Briller Burner, Flot Jakke, Læderkilt Sjov, Turkis, stof, Fjer til Skulder glam, Handsker, Jokreb, Risk varmetop",
-                sticker: "🏄",
-                stickerDesc: "Surfbrætter"
-            },
-            {
-                number: 4,
-                category: "SPORTSTØJ",
-                content: "Regn Jakker x 2 + Bukser, Handsker x 10, Sutsko, Padel! + Bolde, Trøjer x 2",
-                sticker: "🚗",
-                stickerDesc: "VW boble-bil"
-            },
-            {
-                number: 5,
                 category: "KØKKEN & SMYKKER",
-                content: "Kander, Bøgeform, Sil, Ske, Saks, Kniv, Nips Fra vindue, Halskæder x 2",
+                content: "Kander, Bøgeform, Sil, Ske, Saks, Kniv, Nips Fra vindue, Halskæder x 2, Vandfilter",
                 sticker: "🎈",
                 stickerDesc: "Ballon hund"
             },
             {
-                number: 6,
+                number: 2,
                 category: "HOBBY & TÆPPER",
-                content: "Figurer + Hobby, Tæpper, Småting, Bag lysestager, dsy, Øre B Frop",
+                content: "Figurer + Hobby, Tæpper, Småting, Smølfer",
                 sticker: "🚚",
                 stickerDesc: "Keep it going"
             },
             {
-                number: 7,
+                number: 3,
                 category: "SOVEVÆRELSE",
-                content: "Soveværelse, -sjov, Værktøj-skrues, Maskine, Håndklæder",
+                content: "Mariesgynge / gynge, Reb og karabin, Keta, Tusser, Svampe, Varmemåler",
                 sticker: "🧩",
                 stickerDesc: "Rubiks terning"
+            },
+            {
+                number: 4,
+                category: "PREP & VANDFILTRE",
+                content: "Prep: vand sprit ris filtre sprut, Lifestray water filter vandfilter",
+                sticker: "💧",
+                stickerDesc: "Vandfilter"
+            },
+            {
+                number: 5,
+                category: "BURNER & FOTO",
+                content: "Burner blandet, Markerings reb / stof (rød), Foto minder",
+                sticker: "📸",
+                stickerDesc: "Foto minder"
+            },
+            {
+                number: 6,
+                category: "TØJ & TILBEHØR",
+                content: "Skyklær, Briller Burner, Flot Jakke, Læderkilt Sjov, Turkis, stof, Fjer til Skulder glam, Handsker, Jokreb, Risk varmetop, Pels",
+                sticker: "🏄",
+                stickerDesc: "Surfbrætter"
+            },
+            {
+                number: 7,
+                category: "SPORTSTØJ",
+                content: "Regn Jakker x 2 + Bukser, Handsker x 10, Sutsko, Padel! + Bolde, Trøjer x 2",
+                sticker: "🚗",
+                stickerDesc: "VW boble-bil"
             },
             {
                 number: 8,
@@ -364,7 +364,7 @@
             {
                 number: 17,
                 category: "JAKKER & SPEJLE",
-                content: "Jakker, Russisk + Burner jak., spejle x 4, Fimo ler (DUPLIKAT)",
+                content: "Jakker, Russisk + Burner jak., spejle x 4, Fimo ler",
                 sticker: "🗽",
                 stickerDesc: "Frihedsgudinde"
             },
@@ -493,6 +493,27 @@
                 content: "Poser- små +store, Maling, lys, Gin x 5, HAT, Creaer, Tæpper",
                 sticker: "⚓",
                 stickerDesc: "Anker"
+            },
+            {
+                number: 36,
+                category: "TEKSTILER",
+                content: "Håndklæder, Lagen, El-tæppe, Stort Mønstre, Sommer'tap' til bil, Hængekøje: Rød, 'Royal' stof",
+                sticker: "",
+                stickerDesc: "Mønstre tegnet"
+            },
+            {
+                number: "A",
+                category: "MALING & VÆRKTØJ",
+                content: "Malings grej, Tyndt pøler, Spændebøjler, LOS, Potteskjuler:U, 'MAD·SPIL' indesign",
+                sticker: "🔧",
+                stickerDesc: "Rødt stempel"
+            },
+            {
+                number: "B",
+                category: "TEKSTILER",
+                content: "Håndklæder, Lagen, El-tæppe, Stort Mønstre, Sommer'tap' til bil, Hængekøje: Rød, 'Royal' stof",
+                sticker: "",
+                stickerDesc: "Mønstre tegnet"
             }
         ];
 
@@ -542,7 +563,7 @@
                 return box.content.toLowerCase().includes(searchTerm) ||
                        box.category.toLowerCase().includes(searchTerm) ||
                        box.stickerDesc.toLowerCase().includes(searchTerm) ||
-                       `kasse ${box.number}`.includes(searchTerm);
+                       `kasse ${box.number}`.toLowerCase().includes(searchTerm);
             });
             
             renderBoxes(filtered);
