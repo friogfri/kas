@@ -18,6 +18,7 @@
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         min-height: 100vh;
         padding: 20px;
+        font-weight: 500;
     }
 
     .container {
@@ -30,6 +31,7 @@
         color: white;
         margin-bottom: 30px;
         font-size: 2.5em;
+        font-weight: 900;
         text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
     }
 
@@ -147,7 +149,7 @@
 
     .box-number {
         font-size: 24px;
-        font-weight: bold;
+        font-weight: 900;
         color: #333;
     }
 
@@ -175,7 +177,7 @@
         padding: 5px 12px;
         border-radius: 20px;
         font-size: 13px;
-        font-weight: 600;
+        font-weight: 700;
         margin-bottom: 10px;
     }
 
@@ -183,10 +185,12 @@
         color: #333;
         line-height: 1.6;
         font-size: 15px;
+        font-weight: 500;
     }
 
     .box-content strong {
         color: #764ba2;
+        font-weight: 800;
     }
 
     .back-to-top {
@@ -592,8 +596,8 @@
             number: 41,
             category: "SPREDT I KÆLDEREN",
             content: "Ligger underlag, yoga måtte, herrejakke, stor rulle kuffert, kuffert eastPack, stort sengetæppe og memoryfoame madras, diverse lamper, lyskæder i en hvid pose",
-            sticker: "🪄",
-            stickerDesc: "Tryllestav"
+            sticker: "🐱",
+            stickerDesc: "Kat"
         }
     ];
 
@@ -634,7 +638,7 @@
             html += `
             <div class="box-card ${getColorClass(index)}">
                 <div class="box-header">
-                    <div class="box-number">${box.number <= 39 ? 'Kasse' : 'Pose'} ${box.number}</div>
+                    <div class="box-number">${box.number === 41 ? 'Kælder' : box.number <= 39 ? 'Kasse' : 'Pose'} ${box.number}</div>
                     <div class="box-sticker">
                         <span class="sticker-emoji">${box.sticker}</span>
                     </div>
@@ -669,7 +673,7 @@
         }
         
         const filtered = boxes.filter(box => {
-            const boxLabel = box.number <= 39 ? `kasse ${box.number}` : `pose ${box.number}`;
+            const boxLabel = box.number === 41 ? `kælder ${box.number}` : box.number <= 39 ? `kasse ${box.number}` : `pose ${box.number}`;
             return box.content.toLowerCase().includes(searchTerm) ||
                    box.category.toLowerCase().includes(searchTerm) ||
                    box.stickerDesc.toLowerCase().includes(searchTerm) ||
