@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Flyttekasse indhold</title>
+<title>Flyttekasser Oversigt</title>
 <style>
 * {
 margin: 0;
@@ -12,10 +12,9 @@ padding: 0;
 box-sizing: border-box;
 }
 
-```
 body {
-font-family: 'Segoe UI', Geneva, Verdana, sans-serif;
-background: #3a3a3a;
+font-family: 'Segoe UI', Tahoma, Arial, Geneva, Verdana, sans-serif;
+background: #d3d3d3;
 min-height: 100vh;
 padding: 20px;
 font-weight: 500;
@@ -28,11 +27,11 @@ margin: 0 auto;
 
 h1 {
 text-align: center;
-color: white;
+color: #2c2c2c;
 margin-bottom: 30px;
 font-size: 2.5em;
-font-weight: 900;
-text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+font-weight: 300;
+letter-spacing: 2px;
 }
 
 .search-container {
@@ -224,10 +223,10 @@ transform: translateY(0);
 
 .no-results {
 text-align: center;
-color: white;
+color: #2c2c2c;
 font-size: 24px;
 padding: 50px;
-background: rgba(255,255,255,0.1);
+background: rgba(255,255,255,0.5);
 border-radius: 15px;
 margin-top: 30px;
 }
@@ -283,14 +282,12 @@ margin-bottom: 20px;
 }
 }
 </style>
-```
 
 </head>
 <body>
 <div class="container">
-<h1>📦 Flyttekasse Indhold</h1>
+<h1>Flyttekasse Indhold</h1>
 
-```
 <div class="search-container" id="top">
 <div class="search-wrapper">
 <input type="text"
@@ -713,7 +710,6 @@ scrollToBottom();
 // Initial render
 renderBoxes(boxes);
 </script>
-```
 
 </body>
 </html>
