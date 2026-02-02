@@ -1,17 +1,20 @@
 <!DOCTYPE html>
+
 <html lang="da">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Flyttekasser Oversigt</title>
+<title>Flyttekasse indhold</title>
 <style>
 * {
 margin: 0;
 padding: 0;
 box-sizing: border-box;
 }
+
+```
 body {
-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+font-family: 'Segoe UI', Geneva, Verdana, sans-serif;
 background: #3a3a3a;
 min-height: 100vh;
 padding: 20px;
@@ -312,7 +315,7 @@ const boxes = [
 {
 number: 1,
 category: "KØKKEN & SMYKKER",
-content: "Kander, Bageform, Si, Ske, Saks, Kniv, Nips Fra vindue, noget x 2, Vandfilter",
+content: "NU, Kander, Bageform, Si, Ske, Saks, Kniv, Nips Fra vindue, noget x 2, Vandfilter",
 sticker: "🎈",
 stickerDesc: "Ballon hund"
 },
@@ -368,14 +371,14 @@ stickerDesc: "Surfende dyr"
 {
 number: 9,
 category: "DIVERSE",
-content: "Små billeder, Bibel, Atlas, Runde spejle, Diskgolf, Kande, Kloarkdims, Lagner i grøt, til ude Projekt, Voksdug + olie sex",
+content: "Små billeder, Bibel, Atlas, Runde spejle, Diskgolf, Kande, Kloarkdims, Lagner i grøt, til ude Projekt, Voksdug + olie sjov",
 sticker: "📷",
 stickerDesc: "Blåt kamera"
 },
 {
 number: 10,
 category: "SKUFFER & ELEKTRONIK",
-content: "Hvide skuffer x 2, Varm Tøl, Papirslejsner, Gavepapir, Limpistol-lille, Lys, 5 mb kamera, Lygte, Røgalarm, Ledninger til udstyr, Pr. Hordd Briller, MAC",
+content: "Hvide skuffer x 2, Varm Tøl, Papirslejsner, Gavepapir, Limpistol-lille, Lys, 5 mb kamera, Lygte, Røgalarm, Ledninger til udstyr, Pr.SOLBriller med styrke, MAC",
 sticker: "🐟",
 stickerDesc: "Fisk med snorkel"
 },
@@ -391,7 +394,7 @@ number: 12,
 category: "KØKKEN",
 content: "Køkken, Krydderier x 100, Blender, Isposer OSV, Kakao ops, kakao, 'Træhylde', Skærebræt",
 sticker: "🔤",
-stickerDesc: "K tape"
+stickerDesc: "Køk"
 },
 {
 number: 13,
@@ -402,8 +405,8 @@ stickerDesc: "Tropisk ø"
 },
 {
 number: 14,
-category: "NEDLAGT",
-content: "Nedlagt",
+category: "Tømt",
+content: "Tømt",
 sticker: "🐋",
 stickerDesc: "Hval"
 },
@@ -417,7 +420,7 @@ stickerDesc: "Kanin med briller"
 {
 number: 16,
 category: "BADEVÆRELSE",
-content: "Tørt & varmt, Badeværelse, Syting, Trimmes, Piller & creme, 56 x Kugler",
+content: "Badeværelse, Syting, Trimmes, Piller & creme, 56 x Kugler",
 sticker: "🥫",
 stickerDesc: "Campbell's Soup"
 },
@@ -438,14 +441,14 @@ stickerDesc: "Skildpadde"
 {
 number: 19,
 category: "MAD",
-content: "Køl/kælder, Mad, Ris Kakao, Sukker, Kager, Nødder",
+content: "Mad, Kakao, Sukker, Kager, Nødder",
 sticker: "🔤",
-stickerDesc: "K tape"
+stickerDesc: "tape"
 },
 {
 number: 20,
 category: "DIVERSE",
-content: "'Rode kasse' Song DVD-Blue Ray, 'Plads', Drag, Post Kort Lim, Ledning x4, Kasket, Sjippecov x3, Ledninger iPhone x4 Apple, DMT x 12, små glas, Flat stof, Malpensler, Puderfyld",
+content: "'Rode kasse' Song DVD-Blue Ray, 'Plads', PostKort Lim, Ledning x4, Kasket, Sjippecov x3, Ledninger iPhone x4 Apple, DMT x 12, små glas, Flat stof, Malpensler, Puderfyld",
 sticker: "📺",
 stickerDesc: "SF logo"
 },
@@ -466,8 +469,8 @@ stickerDesc: "Plaster"
 },
 {
 number: 22,
-category: "LYSESTAGER & GLAS",
-content: "Lyserød Søhest, Glas, Maling, oske",
+category: "TJEK op på den...",
+content: "Maling",
 sticker: "🐭",
 stickerDesc: "Mus med hammer"
 },
@@ -483,7 +486,7 @@ number: 24,
 category: "SOVEVÆRELSE & KAFFE",
 content: "Soveværelse, Fotos, Kløpind, Kaffefiltre, Dagbogshæfte, Gild, IPod, Ur, N-Bøger, Stearinlys x7, Fyrfadslys, Hare-JBL, Kaffemølle, Trangia, Gode olier",
 sticker: "☮️",
-stickerDesc: "Hippie pige"
+stickerDesc: "Hippie"
 },
 {
 number: 25,
@@ -509,7 +512,7 @@ stickerDesc: "Campingvogn ved søen"
 {
 number: 28,
 category: "LYSESTAGER & GLAS",
-content: "Lyserød Søhest, Glas, Maling, oske",
+content: "Lyserød Søhest, vinglas, Maling, Metalbox",
 sticker: "🔴🧸",
 stickerDesc: "Elmo muppet"
 },
@@ -586,7 +589,7 @@ stickerDesc: "Ahornblad"
 {
 number: 39,
 category: "MALING & VÆRKTØJ",
-content: "Malings grej, Gun perler, LOS, Potteskjuler, 'MAD·SPIL' indesign",
+content: "Malings grej, Gun perler, Potteskjuler, 'MAD·SPIL' indesign",
 sticker: "🖕",
 stickerDesc: "Fuck graffiti"
 },
@@ -710,5 +713,7 @@ scrollToBottom();
 // Initial render
 renderBoxes(boxes);
 </script>
+```
+
 </body>
 </html>
