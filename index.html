@@ -316,14 +316,14 @@ Ingen kasser fundet 😔
 const boxes = [
 {
 number: 1,
-category: "KØKKEN & SMYKKER",
+category: "KØKKEN ",
 content: "NU, Kander, Bageform, Si, Ske, Saks, Kniv, Nips Fra vindue, noget x 2, Vandfilter",
 sticker: "🎈",
 stickerDesc: "Ballon hund"
 },
 {
 number: 2,
-category: "HOBBY & TÆPPER",
+category: "HOBBY ",
 content: "Figurer + Hobby, Tæpper, Småting, Smølfer",
 sticker: "🚚",
 stickerDesc: "Keep it going"
@@ -365,10 +365,10 @@ stickerDesc: "VW boble-bil"
 },
 {
 number: 8,
-category: "SPIL & RØGELSE",
-content: "UV Tæppe OSV, spil. Tørt. Lyst Varmt. Røgelse, Pipetter",
-sticker: "🏄",
-stickerDesc: "Surfende dyr"
+category: "DIVERSE & FESTIVAL",
+content: "Kamerafod/stativ, UV-Maling, UV-Tape, Papir m. tatoos, Journal + rejser, Guldkop, Fjer hvide, Ventilator, Sengetappe 'Tis lagen'",
+sticker: "🏕️",
+stickerDesc: "Campingvogn"
 },
 {
 number: 9,
@@ -386,7 +386,7 @@ stickerDesc: "Fisk med snorkel"
 },
 {
 number: 11,
-category: "SPORT & OUTDOOR",
+category: " & OUTDOOR",
 content: "Hængekøje, Rulleskøjter/Inline, 8 Indendørssko, Sandaler",
 sticker: "🎈",
 stickerDesc: "Ballon poodle"
@@ -400,10 +400,11 @@ stickerDesc: "Køk"
 },
 {
 number: 13,
-category: "CAMPING",
-content: "Flot kop guld, Hjul-inline, Burner mindre+te kande",
-sticker: "🏝️",
-stickerDesc: "Tropisk ø"
+category: "Nedlagt/Tømt",
+content: "Nedlagt/Tømt",
+sticker: "",
+stickerDesc: "",
+isEmpty: true
 },
 {
 number: 14,
@@ -415,22 +416,23 @@ isEmpty: true
 },
 {
 number: 15,
-category: "KUNST & HOBBY",
-content: "Fjer: Hvide, Maling + plus varmepistol, Plakater, Vifte (el)",
-sticker: "🐰",
-stickerDesc: "Kanin med briller"
+category: "Nedlagt/Tømt",
+content: "Nedlagt/Tømt",
+sticker: "",
+stickerDesc: "",
+isEmpty: true
 },
 {
 number: 16,
 category: "BADEVÆRELSE",
-content: "Badeværelse, Syting, Trimmes, Piller & creme, 56 x Kugler",
+content: "Badeværelse, Syting, Trimmes, Piller & creme",
 sticker: "🥫",
 stickerDesc: "Campbell's Soup"
 },
 {
 number: 17,
-category: "HJELME",
-content: "Hjelme, Noland og ca 11 år",
+category: "HJELME & TRANER",
+content: "Hjelme, Noland og ca 11 år, 1000 traner",
 sticker: "⛷️",
 stickerDesc: "Ski/Bjerg"
 },
@@ -444,8 +446,8 @@ isEmpty: true
 },
 {
 number: 19,
-category: "MAD",
-content: "Mad, Kakao, Sukker, Kager, Nødder",
+category: "MAD & KØKKEN",
+content: "Mad, Kakao, Sukker, Gode køkken ting, Kakao",
 sticker: "🔤",
 stickerDesc: "tape"
 },
@@ -459,7 +461,7 @@ stickerDesc: "SF logo"
 {
 number: "Magi",
 category: "✨ MAGISK KASSE ✨",
-content: "Taknemmelighed, Sjov, Humor, Smil og Dejlige øjeblikke, Drømme om rejser, Hotte kys, Frække øjne, dejlige trusser, Rejseminder, Skøre fotos, Godt Humør, Is, kage og lækre godbidder",
+content: "Taknemmelighed, Sjov, Humor, Smil og Dejlige øjeblikke, Drømme om rejser, Hotte kys, Frække øjne, dejlige trusser, Lækre ord, Rejseminder, Skøre fotos, Godt Humør, Is, kage og lækre godbidder",
 sticker: "😋",
 stickerDesc: "Magisk indhold",
 isMagic: true
@@ -501,7 +503,7 @@ stickerDesc: "Angry Birds & Brain Washed"
 },
 {
 number: 26,
-category: "PAPIRER & LAMPER",
+category: "PAPIRER ",
 content: "Vigtige papir, Lamper, Myggenet, Lise/MC, stof, Te kande: 2x Stetson",
 sticker: "🏕️",
 stickerDesc: "Hippie Time campingvogn"
@@ -515,7 +517,7 @@ stickerDesc: "Campingvogn ved søen"
 },
 {
 number: 28,
-category: "Blandet",
+category: "BURNER",
 content: "Burner hat, Metal Kugler, Flot Taske M CDer, Vandpistoler, Lav bånd, El småting vigtig, Klistermarker, Plykker stk, Hobby Macrame, Burnerflag ida",
 sticker: "🔴🧸",
 stickerDesc: "Elmo muppet"
@@ -551,8 +553,8 @@ isEmpty: true
 },
 {
 number: 33,
-category: "SMYKKER & DIVERSE",
-content: "Smykker, SAX, NEUF OSV. GUNS",
+category: " & DIVERSE",
+content: "SAX, NEUF OSV. GUNS",
 sticker: "🏔️",
 stickerDesc: "Adventure Begins"
 },
@@ -572,8 +574,8 @@ stickerDesc: "Lipstick taske"
 },
 {
 number: 36,
-category: "ELEKTRONIK",
-content: "El Tørt. Lynt. Po, 2.l. forstøver, T-shirt: øst, Glowstick x2, Burner smykker 'Dag', Mac PC 5, strygejern, LED·Lyskæde blå, 'wifi ting', Tattooa en dags",
+category: "BURNER",
+content: "El Tørt. Lynt. Po, 2.l. forstøver, T-shirt: øst, Glowstick x2, Burner smykker 'Dag',  lyskæder i en hvid pose, strygejern, LED·Lyskæde blå,  Tattoos endags",
 sticker: "🤙",
 stickerDesc: "Shaka hand"
 },
@@ -586,15 +588,15 @@ stickerDesc: "Frihedsgudinde"
 },
 {
 number: 38,
-category: "RENGØRING",
+category: "SKO",
 content: "El Kedel, Ledning, Rengørings grej, Klud, Støvler, 5 ko",
 sticker: "🍁",
 stickerDesc: "Ahornblad"
 },
 {
 number: 39,
-category: "MALING & VÆRKTØJ",
-content: "Malings grej, Gun perler, Potteskjuler, 'MAD·SPIL' indesign, Poser",
+category: "GUN,
+content: "Malings grej, Gun perler, Potteskjuler, 'MAD·SPIL' indesign, Poser, Poser",
 sticker: "🖕",
 stickerDesc: "Fuck graffiti"
 },
@@ -608,7 +610,7 @@ stickerDesc: "Hulk"
 {
 number: 41,
 category: "SPREDT I KÆLDEREN",
-content: "Ligger underlag, yoga måtte, herrejakke, stor rulle kuffert, kuffert eastPack, stort sengetæppe og memoryfoame madras, diverse lamper, lyskæder i en hvid pose",
+content: "Ligger underlag, yoga måtte, herrejakke, stor rulle kuffert, kuffert eastPack, og memoryfoame madras, diverse lamper, varme pistol",
 sticker: "🐱",
 stickerDesc: "Kat"
 }
