@@ -137,6 +137,11 @@ background: #f5f5dc; /* Beige */
 background: #fff9c4; /* Lys gul */
 }
 
+.box-card.empty {
+background: #bdbdbd;
+opacity: 0.6;
+}
+
 .box-header {
 display: flex;
 justify-content: space-between;
@@ -375,7 +380,7 @@ stickerDesc: "Blåt kamera"
 {
 number: 10,
 category: "SKUFFER & ELEKTRONIK",
-content: "Hvide skuffer x 2, Varm Tøl, Papirslejsner, Gavepapir, Limpistol-lille, Lys, 5 mb kamera, Lygte, Røgalarm, Ledninger til udstyr, Pr.SOLBriller med styrke, MAC, Drage",
+content: "Hvide skuffer x 2, Varm Tøl, Papirslejsner, Gavepapir, Limpistol-lille, Lys, 5 mb kamera, Lygte, Røgalarm, Ledninger til udstyr, MAC, Drage",
 sticker: "🐟",
 stickerDesc: "Fisk med snorkel"
 },
@@ -402,10 +407,11 @@ stickerDesc: "Tropisk ø"
 },
 {
 number: 14,
-category: "Tømt",
-content: "Tømt",
-sticker: "🐋",
-stickerDesc: "Hval"
+category: "Nedlagt/Tømt",
+content: "Nedlagt/Tømt",
+sticker: "",
+stickerDesc: "",
+isEmpty: true
 },
 {
 number: 15,
@@ -430,10 +436,11 @@ stickerDesc: "Ski/Bjerg"
 },
 {
 number: 18,
-category: "TØJ",
-content: "Trøjer, Læder, Bukser, Sprit",
-sticker: "🐢",
-stickerDesc: "Skildpadde"
+category: "Nedlagt/Tømt",
+content: "Nedlagt/Tømt",
+sticker: "",
+stickerDesc: "",
+isEmpty: true
 },
 {
 number: 19,
@@ -509,7 +516,7 @@ stickerDesc: "Campingvogn ved søen"
 {
 number: 28,
 category: "Blandet",
-content: "Burner hat, Metal Kugler, Flot Taske M CDer, Vandpistoler, Lav bånd, El småting vigtig, Klistermarker, Plykker stk, Hobby Macrame, Frænk Tegnesserie, Burnerflag ida",
+content: "Burner hat, Metal Kugler, Flot Taske M CDer, Vandpistoler, Lav bånd, El småting vigtig, Klistermarker, Plykker stk, Hobby Macrame, Burnerflag ida",
 sticker: "🔴🧸",
 stickerDesc: "Elmo muppet"
 },
@@ -535,6 +542,14 @@ sticker: "👼",
 stickerDesc: "Engel/mand"
 },
 {
+number: 32,
+category: "Nedlagt/Tømt",
+content: "Nedlagt/Tømt",
+sticker: "",
+stickerDesc: "",
+isEmpty: true
+},
+{
 number: 33,
 category: "SMYKKER & DIVERSE",
 content: "Smykker, SAX, NEUF OSV. GUNS",
@@ -558,7 +573,7 @@ stickerDesc: "Lipstick taske"
 {
 number: 36,
 category: "ELEKTRONIK",
-content: "El Tørt. Lynt. Po, 2.l. forstøver, T-shirt: øst, Glowstick x2, Burner smykker 'Dag', Mac PC 5, strygejern, LED·Lyskæde blå, 'wifi ting', Tattooa en dags, Skål 'jane'",
+content: "El Tørt. Lynt. Po, 2.l. forstøver, T-shirt: øst, Glowstick x2, Burner smykker 'Dag', Mac PC 5, strygejern, LED·Lyskæde blå, 'wifi ting', Tattooa en dags",
 sticker: "🤙",
 stickerDesc: "Shaka hand"
 },
@@ -571,8 +586,8 @@ stickerDesc: "Frihedsgudinde"
 },
 {
 number: 38,
-category: "SMYKKER & RENGØRING",
-content: "SMYKKER, El Kedel, Ledning, Rengørings grej, Klud, Støvler, 5 ko",
+category: "RENGØRING",
+content: "El Kedel, Ledning, Rengørings grej, Klud, Støvler, 5 ko",
 sticker: "🍁",
 stickerDesc: "Ahornblad"
 },
@@ -632,9 +647,10 @@ noResults.style.display = 'none';
 
 let html = '';
 filteredBoxes.forEach((box, index) => {
+const emptyClass = box.isEmpty ? ' empty' : '';
 // Add box card
 html += `
-<div class="box-card ${getColorClass(index)}">
+<div class="box-card ${getColorClass(index)}${emptyClass}">
 <div class="box-header">
 <div class="box-number">${box.number === 'Magi' ? 'Kasse Magi' : box.number === 41 ? 'Kælder' : box.number <= 39 ? 'Kasse' : 'Pose'} ${box.number === 'Magi' ? '' : box.number}</div>
 <div class="box-sticker">
