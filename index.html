@@ -13,7 +13,7 @@ box-sizing: border-box;
 }
 
 body {
-font-family: 'Segoe UI', Tahoma, Arial, Geneva, Verdana, sans-serif;
+font-family: ‘Segoe UI’, Tahoma, Arial, Geneva, Verdana, sans-serif;
 background: #d3d3d3;
 min-height: 100vh;
 padding: 20px;
@@ -67,9 +67,10 @@ box-shadow: 0 0 10px rgba(118, 75, 162, 0.3);
 .button-row {
 display: flex;
 gap: 10px;
+flex-wrap: wrap;
 }
 
-.clear-btn, .bottom-btn {
+.clear-btn, .bottom-btn, .stats-btn {
 padding: 15px 25px;
 font-size: 16px;
 background: #ff6b6b;
@@ -81,10 +82,15 @@ font-weight: 600;
 transition: all 0.3s;
 white-space: nowrap;
 flex: 1;
+min-width: 150px;
 }
 
 .bottom-btn {
 background: #667eea;
+}
+
+.stats-btn {
+background: #51cf66;
 }
 
 .clear-btn:hover {
@@ -97,8 +103,66 @@ background: #764ba2;
 transform: scale(1.05);
 }
 
-.clear-btn:active, .bottom-btn:active {
+.stats-btn:hover {
+background: #40c057;
+transform: scale(1.05);
+}
+
+.clear-btn:active, .bottom-btn:active, .stats-btn:active {
 transform: scale(0.98);
+}
+
+.stats-panel {
+background: white;
+padding: 20px;
+border-radius: 15px;
+box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+margin-bottom: 30px;
+display: none;
+}
+
+.stats-panel.active {
+display: block;
+}
+
+.stats-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+gap: 15px;
+margin-bottom: 15px;
+}
+
+.stat-card {
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+color: white;
+padding: 15px;
+border-radius: 10px;
+text-align: center;
+}
+
+.stat-number {
+font-size: 2em;
+font-weight: 700;
+margin-bottom: 5px;
+}
+
+.stat-label {
+font-size: 0.9em;
+opacity: 0.9;
+}
+
+.category-list {
+margin-top: 15px;
+}
+
+.category-item {
+background: #f8f9fa;
+padding: 10px;
+border-radius: 5px;
+margin-bottom: 5px;
+display: flex;
+justify-content: space-between;
+align-items: center;
 }
 
 .boxes-grid {
@@ -114,6 +178,7 @@ padding: 20px;
 box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 transition: transform 0.3s, box-shadow 0.3s;
 cursor: pointer;
+position: relative;
 }
 
 .box-card:hover {
@@ -122,24 +187,39 @@ box-shadow: 0 8px 25px rgba(0,0,0,0.3);
 }
 
 .box-card.color-1 {
-background: #e0e0e0; /* Grå */
+background: #e0e0e0;
 }
 
 .box-card.color-2 {
-background: #d7ccc8; /* Lys brun */
+background: #d7ccc8;
 }
 
 .box-card.color-3 {
-background: #f5f5dc; /* Beige */
+background: #f5f5dc;
 }
 
 .box-card.color-4 {
-background: #fff9c4; /* Lys gul */
+background: #fff9c4;
 }
 
 .box-card.empty {
 background: #bdbdbd;
 opacity: 0.6;
+}
+
+.box-card.magic {
+background: linear-gradient(135deg, #ffd700 0%, #ffed4e 50%, #ffd700 100%);
+border: 3px solid #ff69b4;
+animation: magicGlow 2s ease-in-out infinite;
+}
+
+@keyframes magicGlow {
+0%, 100% {
+box-shadow: 0 5px 15px rgba(255, 215, 0, 0.5);
+}
+50% {
+box-shadow: 0 8px 30px rgba(255, 105, 180, 0.8);
+}
 }
 
 .box-header {
@@ -155,6 +235,11 @@ border-bottom: 2px solid rgba(0,0,0,0.1);
 font-size: 24px;
 font-weight: 900;
 color: #333;
+}
+
+.box-card.magic .box-number {
+color: #ff1493;
+text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
 }
 
 .box-sticker {
@@ -185,6 +270,11 @@ font-weight: 700;
 margin-bottom: 10px;
 }
 
+.box-card.magic .box-category {
+background: rgba(255, 20, 147, 0.3);
+color: #c71585;
+}
+
 .box-content {
 color: #333;
 line-height: 1.6;
@@ -195,6 +285,15 @@ font-weight: 500;
 .box-content strong {
 color: #764ba2;
 font-weight: 800;
+}
+
+.box-card.magic .box-content strong {
+color: #ff1493;
+}
+
+.highlight {
+background: yellow;
+font-weight: 700;
 }
 
 .back-to-top {
@@ -236,6 +335,18 @@ border-radius: 15px;
 margin-top: 30px;
 }
 
+.result-count {
+text-align: center;
+color: #667eea;
+font-size: 18px;
+font-weight: 600;
+margin-bottom: 20px;
+padding: 10px;
+background: white;
+border-radius: 10px;
+box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
 @media (max-width: 768px) {
 .boxes-grid {
 grid-template-columns: 1fr;
@@ -259,7 +370,7 @@ flex-direction: column;
 width: 100%;
 }
 
-.clear-btn, .bottom-btn {
+.clear-btn, .bottom-btn, .stats-btn {
 width: 100%;
 }
 
@@ -269,6 +380,10 @@ font-size: 20px;
 
 .sticker-emoji {
 font-size: 28px;
+}
+
+.stats-grid {
+grid-template-columns: 1fr;
 }
 }
 
@@ -302,9 +417,21 @@ placeholder="🔍 Søg efter indhold, kategori eller sticker... (f.eks. 'handske
 </div>
 <div class="button-row">
 <button class="clear-btn" id="clearBtn">🗑️ Slet søgning</button>
+<button class="stats-btn" id="statsBtn">📊 Statistik</button>
 <button class="bottom-btn" id="bottomBtn">🪄 Til bund</button>
 </div>
 </div>
+
+<div class="stats-panel" id="statsPanel">
+<h2 style="margin-bottom: 15px; color: #2c2c2c;">📊 Oversigt</h2>
+<div class="stats-grid" id="statsGrid"></div>
+<div class="category-list">
+<h3 style="margin-bottom: 10px; color: #2c2c2c;">Kategorier:</h3>
+<div id="categoryList"></div>
+</div>
+</div>
+
+<div class="result-count" id="resultCount" style="display: none;"></div>
 
 <div class="boxes-grid" id="boxesGrid"></div>
 <div class="no-results" id="noResults" style="display: none;">
@@ -338,7 +465,7 @@ stickerDesc: "Rubiks terning"
 {
 number: 4,
 category: "PREP & VANDFILTRE",
-content: "Prep: vand sprit ris filtre sprut, Lifestray water filter vandfilter, Poser små+store, Maling, lys, GIN x 5, HAT, Macrame yarn (garn), Tæppe",
+content: "Prep: vand sprit ris filtre sprut, Lifestray water filter vandfilter, Poser små+store, Maling, lys, GIN x 5, HAT, Macrame yarn (garn), Tæppe, vinyl rens, gasbrændere lille (camping)",
 sticker: "💧",
 stickerDesc: "Vandfilter"
 },
@@ -446,10 +573,11 @@ isEmpty: true
 },
 {
 number: 19,
-category: "MAD & KØKKEN",
-content: "Mad, Kakao, Sukker, Gode køkken ting, Kakao",
-sticker: "🔤",
-stickerDesc: "tape"
+category: "Nedlagt/Tømt",
+content: "Nedlagt/Tømt",
+sticker: "",
+stickerDesc: "",
+isEmpty: true
 },
 {
 number: 20,
@@ -483,7 +611,7 @@ stickerDesc: "Mus med hammer"
 {
 number: 23,
 category: "TEKSTILER",
-content: "Håndklæder, Lagen, Stort Mønstre, El-tæppe stort stof 60x80 cm, Sommer'tøp' til bil, Hængekøje: Rød, 'Royal' stof",
+content: "Håndklæder, Lagen, Stort Mønstre, El-tæppe stort stof 60x80 cm, Sommer'tøp' til bil, Hængekøje: Rød, 'Royal' stof, bøger x 5, tegneserier x 8",
 sticker: "",
 stickerDesc: "Mønstre tegnet"
 },
@@ -504,7 +632,7 @@ stickerDesc: "Angry Birds & Brain Washed"
 {
 number: 26,
 category: "PAPIRER",
-content: "Vigtige papir, Lamper, Myggenet, Lise/MC, stof, Te kande: 2x Stetson",
+content: "Vigtige papir, Lamper, Myggenet, mclås, stof, Te kande: 2x Stetson, stof, jakker x 2",
 sticker: "🏕️",
 stickerDesc: "Hippie Time campingvogn"
 },
@@ -581,10 +709,11 @@ stickerDesc: "Shaka hand"
 },
 {
 number: 37,
-category: "JAKKER & SPEJLE",
-content: "Jakker, Russisk + Burner jak., spejle x 4, Fimo ler",
-sticker: "🗽",
-stickerDesc: "Frihedsgudinde"
+category: "Nedlagt/Tømt",
+content: "Nedlagt/Tømt",
+sticker: "",
+stickerDesc: "",
+isEmpty: true
 },
 {
 number: 38,
@@ -613,6 +742,13 @@ category: "SPREDT I KÆLDEREN",
 content: "Ligger underlag, yoga måtte, herrejakke, stor rulle kuffert, kuffert eastPack, og memoryfoame madras, diverse lamper, varme pistol",
 sticker: "🐱",
 stickerDesc: "Kat"
+},
+{
+number: 42,
+category: "KURVEMØBEL 42",
+content: "løbetøj, kasketter, North face vindtær jakke, Everlast jakke",
+sticker: "🧢",
+stickerDesc: "Kasket"
 }
 ];
 
@@ -635,39 +771,58 @@ behavior: 'smooth'
 });
 }
 
-function renderBoxes(filteredBoxes) {
+function highlightText(text, searchTerm) {
+if (!searchTerm) return text;
+const regex = new RegExp(`(${searchTerm})`, 'gi');
+return text.replace(regex, '<span class="highlight">$1</span>');
+}
+
+function renderBoxes(filteredBoxes, searchTerm = '') {
 const grid = document.getElementById('boxesGrid');
 const noResults = document.getElementById('noResults');
+const resultCount = document.getElementById('resultCount');
 
 if (filteredBoxes.length === 0) {
 grid.innerHTML = '';
 noResults.style.display = 'block';
+resultCount.style.display = 'none';
 return;
 }
 
 noResults.style.display = 'none';
+if (searchTerm) {
+resultCount.textContent = `Fandt ${filteredBoxes.length} kasse${filteredBoxes.length !== 1 ? 'r' : ''}`;
+resultCount.style.display = 'block';
+} else {
+resultCount.style.display = 'none';
+}
 
 let html = '';
 filteredBoxes.forEach((box, index) => {
 const emptyClass = box.isEmpty ? ' empty' : '';
-// Add box card
+const magicClass = box.isMagic ? ' magic' : '';
+const boxLabel = box.number === 'Magi' ? 'Kasse Magi' : box.number === 41 ? 'Kælder' : box.number === 42 ? 'Kurvemøbel' : box.number <= 39 ? 'Kasse' : 'Pose';
+const boxDisplayNumber = box.number === 'Magi' ? '' : box.number;
+const highlightedContent = highlightText(box.content, searchTerm);
+const highlightedCategory = highlightText(box.category, searchTerm);
+const highlightedSticker = highlightText(box.stickerDesc, searchTerm);
+
 html += `
-<div class="box-card ${getColorClass(index)}${emptyClass}">
+<div class="box-card ${getColorClass(index)}${emptyClass}${magicClass}">
 <div class="box-header">
-<div class="box-number">${box.number === 'Magi' ? 'Kasse Magi' : box.number === 41 ? 'Kælder' : box.number <= 39 ? 'Kasse' : 'Pose'} ${box.number === 'Magi' ? '' : box.number}</div>
+<div class="box-number">${boxLabel} ${boxDisplayNumber}</div>
 <div class="box-sticker">
 <span class="sticker-emoji">${box.sticker}</span>
 </div>
 </div>
-${box.stickerDesc ? `<div class="sticker-desc">${box.stickerDesc}</div>` : ''}
-<div class="box-category">${box.category}</div>
+${box.stickerDesc ? `<div class="sticker-desc">${highlightedSticker}</div>` : ''}
+<div class="box-category">${highlightedCategory}</div>
 <div class="box-content">
-<strong>Indhold:</strong> ${box.content}
+<strong>Indhold:</strong> ${highlightedContent}
 </div>
 </div>
 `;
 
-// Add "Tilbage til top" button after every 3rd box
 if ((index + 1) % 3 === 0 && index < filteredBoxes.length - 1) {
 html += `
 <div class="back-to-top">
@@ -680,6 +835,66 @@ html += `
 grid.innerHTML = html;
 }
 
+function calculateStats() {
+const totalBoxes = boxes.length;
+const activeBoxes = boxes.filter(b => !b.isEmpty).length;
+const emptyBoxes = boxes.filter(b => b.isEmpty).length;
+const categories = {};
+boxes.forEach(box => {
+if (!box.isEmpty && !box.isMagic) {
+if (categories[box.category]) {
+categories[box.category]++;
+} else {
+categories[box.category] = 1;
+}
+}
+});
+
+return { totalBoxes, activeBoxes, emptyBoxes, categories };
+}
+
+function toggleStats() {
+const statsPanel = document.getElementById('statsPanel');
+const statsGrid = document.getElementById('statsGrid');
+const categoryList = document.getElementById('categoryList');
+
+if (statsPanel.classList.contains('active')) {
+statsPanel.classList.remove('active');
+return;
+}
+
+const stats = calculateStats();
+
+statsGrid.innerHTML = `
+<div class="stat-card">
+<div class="stat-number">${stats.totalBoxes}</div>
+<div class="stat-label">Total kasser</div>
+</div>
+<div class="stat-card">
+<div class="stat-number">${stats.activeBoxes}</div>
+<div class="stat-label">Aktive kasser</div>
+</div>
+<div class="stat-card">
+<div class="stat-number">${stats.emptyBoxes}</div>
+<div class="stat-label">Tomme kasser</div>
+</div>
+<div class="stat-card">
+<div class="stat-number">${Object.keys(stats.categories).length}</div>
+<div class="stat-label">Kategorier</div>
+</div>
+`;
+
+const sortedCategories = Object.entries(stats.categories).sort((a, b) => b[1] - a[1]);
+categoryList.innerHTML = sortedCategories.map(([cat, count]) => `
+<div class="category-item">
+<span>${cat}</span>
+<span style="font-weight: 700; color: #667eea;">${count} kasse${count !== 1 ? 'r' : ''}</span>
+</div>
+`).join('');
+
+statsPanel.classList.add('active');
+}
+
 function searchBoxes(query) {
 const searchTerm = query.toLowerCase().trim();
 
@@ -689,36 +904,33 @@ return;
 }
 
 const filtered = boxes.filter(box => {
-// Skip den magiske kasse i søgeresultater
-if (box.isMagic) return false;
-
-const boxLabel = box.number === 41 ? `kælder ${box.number}` : box.number <= 39 ? `kasse ${box.number}` : `pose ${box.number}`;
+const boxLabel = box.number === 41 ? `kælder ${box.number}` : box.number === 42 ? `kurvemøbel ${box.number}` : box.number <= 39 ? `kasse ${box.number}` : `pose ${box.number}`;
 return box.content.toLowerCase().includes(searchTerm) ||
 box.category.toLowerCase().includes(searchTerm) ||
 box.stickerDesc.toLowerCase().includes(searchTerm) ||
 boxLabel.toLowerCase().includes(searchTerm);
 });
 
-renderBoxes(filtered);
+renderBoxes(filtered, searchTerm);
 }
 
-// Event listener for search
 document.getElementById('searchInput').addEventListener('input', (e) => {
 searchBoxes(e.target.value);
 });
 
-// Event listener for clear button
 document.getElementById('clearBtn').addEventListener('click', () => {
 document.getElementById('searchInput').value = '';
 renderBoxes(boxes);
 });
 
-// Event listener for bottom button
+document.getElementById('statsBtn').addEventListener('click', () => {
+toggleStats();
+});
+
 document.getElementById('bottomBtn').addEventListener('click', () => {
 scrollToBottom();
 });
 
-// Initial render
 renderBoxes(boxes);
 </script>
 
