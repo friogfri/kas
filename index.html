@@ -205,6 +205,19 @@ background: #fff9c4;
 .box-card.empty {
 background: #bdbdbd;
 opacity: 0.6;
+padding: 10px 15px;
+min-height: auto;
+}
+
+.box-card.empty .box-header {
+margin-bottom: 0;
+padding-bottom: 0;
+border-bottom: none;
+}
+
+.box-card.empty .box-category,
+.box-card.empty .box-content {
+display: none;
 }
 
 .box-card.magic {
@@ -347,6 +360,52 @@ border-radius: 10px;
 box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
+.alphabetical-index {
+background: white;
+padding: 30px;
+border-radius: 15px;
+box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+margin-top: 40px;
+}
+
+.index-content {
+column-count: 3;
+column-gap: 30px;
+}
+
+.index-item {
+break-inside: avoid;
+padding: 5px 0;
+font-size: 15px;
+line-height: 1.8;
+}
+
+.index-item-name {
+color: #2c2c2c;
+font-weight: 600;
+}
+
+.index-item-box {
+color: #667eea;
+font-weight: 700;
+margin-left: 5px;
+}
+
+.letter-header {
+font-size: 28px;
+font-weight: 900;
+color: #667eea;
+margin-top: 20px;
+margin-bottom: 10px;
+padding-top: 10px;
+border-top: 3px solid #667eea;
+break-after: avoid;
+}
+
+.letter-header:first-child {
+margin-top: 0;
+}
+
 @media (max-width: 768px) {
 .boxes-grid {
 grid-template-columns: 1fr;
@@ -385,6 +444,11 @@ font-size: 28px;
 .stats-grid {
 grid-template-columns: 1fr;
 }
+
+.index-content {
+column-count: 2;
+column-gap: 15px;
+}
 }
 
 @media (max-width: 480px) {
@@ -399,6 +463,10 @@ padding: 15px;
 h1 {
 font-size: 1.5em;
 margin-bottom: 20px;
+}
+
+.index-content {
+column-count: 1;
 }
 }
 </style>
@@ -436,6 +504,11 @@ placeholder="🔍 Søg efter indhold, kategori eller sticker... (f.eks. 'handske
 <div class="boxes-grid" id="boxesGrid"></div>
 <div class="no-results" id="noResults" style="display: none;">
 Ingen kasser fundet 😔
+</div>
+
+<div class="alphabetical-index" id="alphabeticalIndex">
+<h2 style="text-align: center; color: #2c2c2c; margin-bottom: 20px;">📇 Alfabetisk Register</h2>
+<div class="index-content" id="indexContent"></div>
 </div>
 </div>
 
@@ -932,6 +1005,53 @@ scrollToBottom();
 });
 
 renderBoxes(boxes);
+
+// Generate alphabetical index
+function generateAlphabeticalIndex() {
+const indexContent = document.getElementById('indexContent');
+const items = [];
+
+boxes.forEach(box => {
+if (box.isEmpty || box.isMagic) return;
+
+const boxNumber = box.number;
+const contentItems = box.content.split(',').map(item => item.trim());
+
+contentItems.forEach(item => {
+if (item) {
+items.push({
+name: item,
+box: boxNumber
+});
+}
+});
+});
+
+// Sort alphabetically
+items.sort((a, b) => a.name.localeCompare(b.name, 'da'));
+
+// Generate HTML with letter headers
+let html = '';
+let currentLetter = '';
+
+items.forEach(item => {
+const firstLetter = item.name.charAt(0).toUpperCase();
+if (firstLetter !== currentLetter) {
+currentLetter = firstLetter;
+html += `<div class="letter-header">${currentLetter}</div>`;
+}
+html += `
+<div class="index-item">
+<span class="index-item-name">${item.name}</span>
+<span class="index-item-box">(${item.box})</span>
+</div>
+`;
+});
+
+indexContent.innerHTML = html;
+}
+
+generateAlphabeticalIndex();
 </script>
 
 </body>
