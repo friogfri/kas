@@ -509,6 +509,9 @@ Ingen kasser fundet 😔
 <div class="alphabetical-index" id="alphabeticalIndex">
 <h2 style="text-align: center; color: #2c2c2c; margin-bottom: 20px;">📇 Alfabetisk Register</h2>
 <div class="index-content" id="indexContent"></div>
+<div style="text-align: center; margin-top: 30px;">
+<button class="back-to-top-btn" onclick="scrollToTop()">🪄 Tilbage til top</button>
+</div>
 </div>
 </div>
 
@@ -913,6 +916,9 @@ const totalBoxes = boxes.length;
 const activeBoxes = boxes.filter(b => !b.isEmpty).length;
 const emptyBoxes = boxes.filter(b => b.isEmpty).length;
 const categories = {};
+let totalItems = 0;
+const uniqueItems = new Set();
+
 boxes.forEach(box => {
 if (!box.isEmpty && !box.isMagic) {
 if (categories[box.category]) {
@@ -920,10 +926,16 @@ categories[box.category]++;
 } else {
 categories[box.category] = 1;
 }
+// Count items
+const contentItems = box.content.split(',').map(item => item.trim()).filter(item => item);
+totalItems += contentItems.length;
+contentItems.forEach(item => {
+uniqueItems.add(item.toLowerCase());
+});
 }
 });
 
-return { totalBoxes, activeBoxes, emptyBoxes, categories };
+return { totalBoxes, activeBoxes, emptyBoxes, categories, totalItems, uniqueItems: uniqueItems.size };
 }
 
 function toggleStats() {
@@ -954,6 +966,14 @@ statsGrid.innerHTML = `
 <div class="stat-card">
 <div class="stat-number">${Object.keys(stats.categories).length}</div>
 <div class="stat-label">Kategorier</div>
+</div>
+<div class="stat-card">
+<div class="stat-number">${stats.totalItems}</div>
+<div class="stat-label">Antal objekter registreret</div>
+</div>
+<div class="stat-card">
+<div class="stat-number">${stats.uniqueItems}</div>
+<div class="stat-label">Forskellige objekter</div>
 </div>
 `;
 
