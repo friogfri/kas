@@ -406,6 +406,108 @@ break-after: avoid;
 margin-top: 0;
 }
 
+.discard-section {
+background: white;
+padding: 30px;
+border-radius: 15px;
+box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+margin-top: 40px;
+}
+
+.discard-item {
+display: flex;
+align-items: center;
+padding: 12px;
+margin-bottom: 8px;
+background: #f8f9fa;
+border-radius: 8px;
+transition: all 0.3s;
+}
+
+.discard-item:hover {
+background: #e9ecef;
+}
+
+.discard-item.marked {
+background: #ffebee;
+text-decoration: line-through;
+opacity: 0.7;
+}
+
+.discard-checkbox {
+width: 24px;
+height: 24px;
+margin-right: 15px;
+cursor: pointer;
+flex-shrink: 0;
+}
+
+.discard-item-name {
+flex: 1;
+color: #2c2c2c;
+font-weight: 600;
+font-size: 15px;
+}
+
+.discard-item-box {
+color: #667eea;
+font-weight: 700;
+background: rgba(102, 126, 234, 0.1);
+padding: 4px 12px;
+border-radius: 15px;
+margin-left: 10px;
+font-size: 14px;
+flex-shrink: 0;
+}
+
+.discard-controls {
+display: flex;
+gap: 10px;
+margin-bottom: 20px;
+justify-content: center;
+flex-wrap: wrap;
+}
+
+.discard-btn {
+padding: 12px 24px;
+font-size: 15px;
+background: #667eea;
+color: white;
+border: none;
+border-radius: 10px;
+cursor: pointer;
+font-weight: 600;
+transition: all 0.3s;
+}
+
+.discard-btn.danger {
+background: #ff6b6b;
+}
+
+.discard-btn.success {
+background: #51cf66;
+}
+
+.discard-btn:hover {
+transform: scale(1.05);
+opacity: 0.9;
+}
+
+.discard-btn:active {
+transform: scale(0.98);
+}
+
+.discard-stats {
+text-align: center;
+color: #667eea;
+font-size: 16px;
+font-weight: 600;
+margin-bottom: 20px;
+padding: 15px;
+background: #f8f9fa;
+border-radius: 10px;
+}
+
 @media (max-width: 768px) {
 .boxes-grid {
 grid-template-columns: 1fr;
@@ -509,6 +611,23 @@ Ingen kasser fundet 😔
 <div class="alphabetical-index" id="alphabeticalIndex">
 <h2 style="text-align: center; color: #2c2c2c; margin-bottom: 20px;">📇 Alfabetisk Register</h2>
 <div class="index-content" id="indexContent"></div>
+<div style="text-align: center; margin-top: 30px;">
+<button class="back-to-top-btn" onclick="scrollToTop()">🪄 Tilbage til top</button>
+</div>
+</div>
+
+<div class="discard-section" id="discardSection">
+<h2 style="text-align: center; color: #2c2c2c; margin-bottom: 20px;">🗑️ Kan på sigt kasseres?</h2>
+<div class="discard-stats" id="discardStats">
+Ingen objekter markeret til kassering
+</div>
+<div class="discard-controls">
+<button class="discard-btn" onclick="showAllItems()">📋 Vis alle objekter</button>
+<button class="discard-btn success" onclick="showMarkedOnly()">✅ Vis kun markerede</button>
+<button class="discard-btn danger" onclick="clearAllMarked()">🗑️ Ryd alle markeringer</button>
+<button class="discard-btn success" onclick="exportMarked()">💾 Eksporter liste</button>
+</div>
+<div id="discardContent"></div>
 <div style="text-align: center; margin-top: 30px;">
 <button class="back-to-top-btn" onclick="scrollToTop()">🪄 Tilbage til top</button>
 </div>
@@ -1072,6 +1191,153 @@ indexContent.innerHTML = html;
 }
 
 generateAlphabeticalIndex();
+
+// Discard tracking system
+let discardedItems = JSON.parse(localStorage.getItem('discardedItems') || '[]');
+let showOnlyMarked = false;
+
+function generateDiscardList() {
+const discardContent = document.getElementById('discardContent');
+const items = [];
+
+boxes.forEach(box => {
+if (box.isEmpty || box.isMagic) return;
+
+const boxNumber = box.number;
+const contentItems = box.content.split(',').map(item => item.trim());
+
+contentItems.forEach(item => {
+if (item) {
+items.push({
+name: item,
+box: boxNumber,
+id: `${item.toLowerCase()}_${boxNumber}`
+});
+}
+});
+});
+
+// Sort alphabetically
+items.sort((a, b) => a.name.localeCompare(b.name, 'da'));
+
+// Filter if showing only marked
+const filteredItems = showOnlyMarked 
+? items.filter(item => discardedItems.includes(item.id))
+: items;
+
+// Generate HTML
+let html = '';
+filteredItems.forEach(item => {
+const isMarked = discardedItems.includes(item.id);
+html += `
+<div class="discard-item ${isMarked ? 'marked' : ''}" data-id="${item.id}">
+<input type="checkbox" 
+class="discard-checkbox" 
+${isMarked ? 'checked' : ''}
+onchange="toggleDiscard('${item.id}')"
+id="check_${item.id}">
+<span class="discard-item-name">${item.name}</span>
+<span class="discard-item-box">Kasse ${item.box}</span>
+</div>
+`;
+});
+
+discardContent.innerHTML = html || '<p style="text-align: center; color: #999;">Ingen objekter at vise</p>';
+updateDiscardStats();
+}
+
+function toggleDiscard(itemId) {
+const index = discardedItems.indexOf(itemId);
+if (index > -1) {
+discardedItems.splice(index, 1);
+} else {
+discardedItems.push(itemId);
+}
+localStorage.setItem('discardedItems', JSON.stringify(discardedItems));
+
+const itemElement = document.querySelector(`[data-id="${itemId}"]`);
+if (itemElement) {
+itemElement.classList.toggle('marked');
+}
+updateDiscardStats();
+}
+
+function updateDiscardStats() {
+const statsElement = document.getElementById('discardStats');
+const count = discardedItems.length;
+if (count === 0) {
+statsElement.textContent = 'Ingen objekter markeret til kassering';
+} else if (count === 1) {
+statsElement.textContent = '1 objekt markeret til kassering';
+} else {
+statsElement.textContent = `${count} objekter markeret til kassering`;
+}
+}
+
+function showAllItems() {
+showOnlyMarked = false;
+generateDiscardList();
+}
+
+function showMarkedOnly() {
+showOnlyMarked = true;
+generateDiscardList();
+}
+
+function clearAllMarked() {
+if (discardedItems.length === 0) {
+alert('Ingen markeringer at rydde');
+return;
+}
+if (confirm(`Er du sikker på at du vil rydde alle ${discardedItems.length} markeringer?`)) {
+discardedItems = [];
+localStorage.setItem('discardedItems', JSON.stringify(discardedItems));
+generateDiscardList();
+}
+}
+
+function exportMarked() {
+if (discardedItems.length === 0) {
+alert('Ingen objekter markeret til eksport');
+return;
+}
+
+const items = [];
+boxes.forEach(box => {
+if (box.isEmpty || box.isMagic) return;
+const boxNumber = box.number;
+const contentItems = box.content.split(',').map(item => item.trim());
+contentItems.forEach(item => {
+if (item) {
+const id = `${item.toLowerCase()}_${boxNumber}`;
+if (discardedItems.includes(id)) {
+items.push({ name: item, box: boxNumber });
+}
+}
+});
+});
+
+items.sort((a, b) => a.name.localeCompare(b.name, 'da'));
+
+let text = '=== OBJEKTER TIL KASSERING ===\n\n';
+items.forEach(item => {
+text += `${item.name} (Kasse ${item.box})\n`;
+});
+text += `\nTotal: ${items.length} objekter`;
+
+// Create download
+const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+const url = URL.createObjectURL(blob);
+const a = document.createElement('a');
+a.href = url;
+a.download = 'kasserings_liste.txt';
+document.body.appendChild(a);
+a.click();
+document.body.removeChild(a);
+URL.revokeObjectURL(url);
+}
+
+generateDiscardList();
 </script>
 
 </body>
