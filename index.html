@@ -13,7 +13,7 @@ box-sizing: border-box;
 }
 
 body {
-font-family: ‘Segoe UI’, Tahoma, Arial, Geneva, Verdana, sans-serif;
+font-family: “Segoe UI”, Tahoma, Geneva, Verdana, sans-serif;
 background: #d3d3d3;
 min-height: 100vh;
 padding: 20px;
@@ -1115,19 +1115,27 @@ renderBoxes(boxes);
 return;
 }
 
+// Split search terms by space for AND logic
+const searchTerms = searchTerm.split(/\s+/).filter(term => term.length > 0);
+
 const filtered = boxes.filter(box => {
 const boxLabel = box.number === 41 ? `kælder ${box.number}` : box.number === 42 ? `kurvemøbel ${box.number}` : box.number <= 39 ? `kasse ${box.number}` : `pose ${box.number}`;
-return box.content.toLowerCase().includes(searchTerm) ||
-box.category.toLowerCase().includes(searchTerm) ||
-box.stickerDesc.toLowerCase().includes(searchTerm) ||
-boxLabel.toLowerCase().includes(searchTerm);
+const searchableText = `${box.content} ${box.category} ${box.stickerDesc} ${boxLabel}`.toLowerCase();
+
+// All search terms must be present (AND logic)
+return searchTerms.every(term => searchableText.includes(term));
 });
 
 renderBoxes(filtered, searchTerm);
 }
 
+// Debounce search for better performance
+let searchTimeout;
 document.getElementById('searchInput').addEventListener('input', (e) => {
+clearTimeout(searchTimeout);
+searchTimeout = setTimeout(() => {
 searchBoxes(e.target.value);
+}, 250);
 });
 
 document.getElementById('clearBtn').addEventListener('click', () => {
