@@ -13,7 +13,7 @@ box-sizing: border-box;
 }
 
 body {
-font-family: “Segoe UI”, Tahoma, Geneva, Verdana, sans-serif;
+font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 background: #d3d3d3;
 min-height: 100vh;
 padding: 20px;
@@ -595,10 +595,6 @@ placeholder="🔍 Søg efter indhold, kategori eller sticker... (f.eks. 'handske
 <div class="stats-panel" id="statsPanel">
 <h2 style="margin-bottom: 15px; color: #2c2c2c;">📊 Oversigt</h2>
 <div class="stats-grid" id="statsGrid"></div>
-<div class="category-list">
-<h3 style="margin-bottom: 10px; color: #2c2c2c;">Kategorier:</h3>
-<div id="categoryList"></div>
-</div>
 </div>
 
 <div class="result-count" id="resultCount" style="display: none;"></div>
@@ -716,7 +712,7 @@ stickerDesc: "Ballon poodle"
 {
 number: 12,
 category: "KØKKEN",
-content: "Køkken, Krydderier x 100, Blender, Isposer OSV, Kakao ops, kakao, 'Træhylde', Skærebræt",
+content: "Køkken, Krydderier x 100, Blender, Isposer OSV, Kakao ops, kakao, Træhylde, Skærebræt",
 sticker: "🔤",
 stickerDesc: "Køk"
 },
@@ -777,7 +773,7 @@ isEmpty: true
 {
 number: 20,
 category: "DIVERSE",
-content: "'Rode kasse' Song DVD-Blue Ray, 'Plads', PostKort Lim, Ledning x4, Kasket, Sjippecov x3, Ledninger iPhone x4 Apple, DMT x 12, små glas, Flat stof, Malpensler, Puderfyld",
+content: "Rode kasse og Song DVD-Blue Ray, PostKort Lim, Ledning x4, Kasket, Sjippecov x3, Ledninger iPhone x4 Apple, DMT x 12, små glas, Flat stof, Malpensler, Puderfyld",
 sticker: "📺",
 stickerDesc: "SF logo"
 },
@@ -806,7 +802,7 @@ stickerDesc: "Mus med hammer"
 {
 number: 23,
 category: "TEKSTILER",
-content: "Håndklæder, Lagen, Stort Mønstre, El-tæppe stort stof 60x80 cm, Sommer'tøp' til bil, Hængekøje: Rød, 'Royal' stof, bøger x 5, tegneserier x 8",
+content: "Håndklæder, Lagen, Stort Mønstre, El-tæppe stort stof 60x80 cm, Sommer'tøp' til bil, Hængekøje: Rød, Royaltstof, bøger x 5, tegneserier x 8",
 sticker: "",
 stickerDesc: "Mønstre tegnet"
 },
@@ -884,14 +880,14 @@ stickerDesc: "Adventure Begins"
 {
 number: 34,
 category: "FOTOS & CD'ER",
-content: "CD'er, Bøjler, Hoppy, 'sylt', Nips, Stjerner, Foto's VIF",
+content: "CD'er, Bøjler, Hoppy, sylt, Nips, Stjerner, Foto's VIF",
 sticker: "🥫",
 stickerDesc: "VIBES krukke"
 },
 {
 number: 35,
 category: "LAMPER & DEKOR",
-content: "'Blod lampe', Maling, Ramme Lattergas, Silkebånd, Tæppe's'ior",
+content: "Campinglampe (rundlampe med batteri), Maling, Ramme Lattergas, Silkebånd, Tæppe's'ior",
 sticker: "💄",
 stickerDesc: "Lipstick taske"
 },
@@ -920,7 +916,7 @@ stickerDesc: "Ahornblad"
 {
 number: 39,
 category: "GUN",
-content: "Malings grej, Gun perler, Potteskjuler, 'MAD·SPIL' indesign, Poser, Poser",
+content: "Malings grej, Gun perler, Potteskjuler, MADspil og inDesign, Poser, Poser",
 sticker: "🖕",
 stickerDesc: "Fuck graffiti"
 },
@@ -1060,7 +1056,6 @@ return { totalBoxes, activeBoxes, emptyBoxes, categories, totalItems, uniqueItem
 function toggleStats() {
 const statsPanel = document.getElementById('statsPanel');
 const statsGrid = document.getElementById('statsGrid');
-const categoryList = document.getElementById('categoryList');
 
 if (statsPanel.classList.contains('active')) {
 statsPanel.classList.remove('active');
@@ -1095,14 +1090,6 @@ statsGrid.innerHTML = `
 <div class="stat-label">Forskellige objekter</div>
 </div>
 `;
-
-const sortedCategories = Object.entries(stats.categories).sort((a, b) => b[1] - a[1]);
-categoryList.innerHTML = sortedCategories.map(([cat, count]) => `
-<div class="category-item">
-<span>${cat}</span>
-<span style="font-weight: 700; color: #667eea;">${count} kasse${count !== 1 ? 'r' : ''}</span>
-</div>
-`).join('');
 
 statsPanel.classList.add('active');
 }
