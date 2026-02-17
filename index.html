@@ -226,6 +226,30 @@ border: 3px solid #ff69b4;
 animation: magicGlow 2s ease-in-out infinite;
 }
 
+.box-card.marie {
+background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 50%, #fce4ec 100%);
+border: 2px solid #f48fb1;
+}
+
+.box-card.marie .box-number {
+color: #ad1457;
+}
+
+.box-card.marie .box-category {
+background: rgba(173, 20, 87, 0.15);
+color: #ad1457;
+}
+
+.box-card.marie .box-content strong {
+color: #ad1457;
+}
+
+.box-card.marie .sticker-desc {
+color: #ad1457;
+font-style: italic;
+font-weight: 600;
+}
+
 @keyframes magicGlow {
 0%, 100% {
 box-shadow: 0 5px 15px rgba(255, 215, 0, 0.5);
@@ -633,6 +657,22 @@ Ingen objekter markeret til kassering
 <script>
 const boxes = [
 {
+number: "Marie 1",
+category: "DYNER & SENGETØJ",
+content: "Sommerdyner, Blå dyne",
+sticker: "🌸",
+stickerDesc: "Maries kasse",
+isMarie: true
+},
+{
+number: "Marie 2",
+category: "FEST & FESTIVAL TØJ",
+content: "Fest og Festival tøj",
+sticker: "🌸",
+stickerDesc: "Maries kasse",
+isMarie: true
+},
+{
 number: 1,
 category: "KØKKEN",
 content: "NU, Kander, Bageform, Si, Ske, Saks, Kniv, Nips Fra vindue, noget x 2, Vandfilter",
@@ -670,7 +710,7 @@ stickerDesc: "Foto minder"
 {
 number: 6,
 category: "TØJ & TILBEHØR",
-content: "Sky, Briller Burner, Flot Jakke, Læderkilt Sjov, Turkis, stof, Fjer til Skulder glam, Handsker, reb, pisk varmetæppe, Pels",
+content: "Sky, Briller Burner, Flot Jakke, Læderkilt Sjov, Turkis jakke, stof, Fjer til Skulder glam, Handsker, reb, pisk varmetæppe, Pels",
 sticker: "🏄",
 stickerDesc: "Surfbrætter"
 },
@@ -992,14 +1032,15 @@ let html = '';
 filteredBoxes.forEach((box, index) => {
 const emptyClass = box.isEmpty ? ' empty' : '';
 const magicClass = box.isMagic ? ' magic' : '';
-const boxLabel = box.number === 'Magi' ? 'Kasse Magi' : box.number === 41 ? 'Kælder' : box.number === 42 ? 'Kurvemøbel' : box.number <= 39 ? 'Kasse' : 'Pose';
+const marieClass = box.isMarie ? ' marie' : '';
+const boxLabel = box.number === 'Magi' ? 'Kasse Magi' : typeof box.number === 'string' && box.number.startsWith('Marie') ? 'Kasse' : box.number === 41 ? 'Kælder' : box.number === 42 ? 'Kurvemøbel' : box.number <= 39 ? 'Kasse' : 'Pose';
 const boxDisplayNumber = box.number === 'Magi' ? '' : box.number;
 const highlightedContent = highlightText(box.content, searchTerm);
 const highlightedCategory = highlightText(box.category, searchTerm);
 const highlightedSticker = highlightText(box.stickerDesc, searchTerm);
 
 html += `
-<div class="box-card ${getColorClass(index)}${emptyClass}${magicClass}">
+<div class="box-card ${getColorClass(index)}${emptyClass}${magicClass}${marieClass}">
 <div class="box-header">
 <div class="box-number">${boxLabel} ${boxDisplayNumber}</div>
 <div class="box-sticker">
